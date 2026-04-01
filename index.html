@@ -1011,54 +1011,90 @@ function printInvoice(id){
   var inv=DB.invoices.find(x=>x.id===id); if(!inv)return;
   var co=CFG.company||'GreenRoute Landscaping';
   var w=window.open('','_blank');
-  w.document.write(`<!DOCTYPE html><html><head><title>${inv.id}</title><style>body{font-family:Georgia,serif;padding:48px;max-width:680px;margin:0 auto;color:#111;}h1{font-size:26px;color:#1E5C1E;}table{width:100%;border-collapse:collapse;margin-top:20px;}th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:#888;padding-bottom:8px;border-bottom:2px solid #ddd;}td{padding:10px 0;border-bottom:1px solid #eee;font-size:14px;}.total{font-weight:800;font-size:18px;color:#1E5C1E;}.badge{display:inline-block;padding:3px 12px;border-radius:6px;font-size:11px;font-weight:800;text-transform:uppercase;background:${inv.status==='Paid'?'#E8F5E8':'#FEF3C7'};color:${inv.status==='Paid'?'#1E5C1E':'#B45309'};}</style></head><body><h1>🌿 ${co}</h1><p style="color:#888;font-size:13px;margin-bottom:24px;">${CFG.phone||''} · ${CFG.email||''}</p><h2 style="font-size:18px;margin-bottom:6px;">${inv.id} <span class="badge">${inv.status}</span></h2><table><tr><th>Client</th><th>Issue Date</th><th>Due Date</th><th>Amount</th></tr><tr><td>${inv.client}</td><td>${inv.date}</td><td>${inv.due}</td><td class="total">$${Number(inv.amount).toLocaleString()}</td></tr></table>${inv.notes?`<p style="margin-top:20px;font-size:13px;color:#666;">Notes: ${inv.notes}</p>`:''}<p style="margin-top:48px;font-size:12px;color:#aaa;">Thank you for your business — ${co}</p><script>window.print();<\/script></body></html>`);
-
+  w.document.write(`<!DOCTYPE html><html><head><title>${inv.id}</title><'+'style>body{font-family:Georgia,serif;padding:48px;max-width:680px;margin:0 auto;color:#111;}h1{font-size:26px;color:#1E5C1E;}table{width:100%;border-collapse:collapse;margin-top:20px;}th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:#888;padding-bottom:8px;border-bottom:2px solid #ddd;}td{padding:10px 0;border-bottom:1px solid #eee;font-size:14px;}.total{font-weight:800;font-size:18px;color:#1E5C1E;}.badge{display:inline-block;padding:3px 12px;border-radius:6px;font-size:11px;font-weight:800;text-transform:uppercase;background:${inv.status==='Paid'?'#E8F5E8':'#FEF3C7'};color:${inv.status==='Paid'?'#1E5C1E':'#B45309'};}</'+'style></head><body><h1>🌿 ${co}</h1><p style="color:#888;font-size:13px;margin-bottom:24px;">${CFG.phone||''} · ${CFG.email||''}</p><h2 style="font-size:18px;margin-bottom:6px;">${inv.id} <span class="badge">${inv.status}</span></h2><table><tr><th>Client</th><th>Issue Date</th><th>Due Date</th><th>Amount</th></tr><tr><td>${inv.client}</td><td>${inv.date}</td><td>${inv.due}</td><td class="total">$${Number(inv.amount).toLocaleString()}</td></tr></table>${inv.notes?`<p style="margin-top:20px;font-size:13px;color:#666;">Notes: ${inv.notes}</p>`:''}<p style="margin-top:48px;font-size:12px;color:#aaa;">Thank you for your business — ${co}</p><script>window.print();<\/script></body></html>`);
 }
 
 // ═══════════════════════════════════════════════════════════
 //  ESTIMATES
 // ═══════════════════════════════════════════════════════════
-function setEstFilter(f){estFilter=f;document.querySelectorAll(’[id^=“ef-”]’).forEach(b=>b.classList.remove(‘active’));document.getElementById(‘ef-’+f).classList.add(‘active’);renderEstimates();}
+function setEstFilter(f){estFilter=f;document.querySelectorAll('[id^="ef-"]').forEach(b=>b.classList.remove('active'));document.getElementById('ef-'+f).classList.add('active');renderEstimates();}
 function renderEstimates(){
-var ests=estFilter===‘All’?DB.estimates:DB.estimates.filter(e=>e.status===estFilter);
-var el=document.getElementById(‘estimate-list’);
-if(!ests.length){el.innerHTML=`<div class="empty-state"><div class="empty-icon">📋</div><p>No estimates.</p></div>`;return;}
-el.innerHTML=ests.map(e=>{
-var total=e.lines.reduce((s,l)=>s+l.qty*l.price,0);
-return`<div class="card" onclick="showEstimateDetail('${esc(e.id)}')"> <div class="card-row"> <div style="flex:1"><div class="card-title">${esc(e.id)} — ${esc(e.client)}</div><div class="card-sub">${esc(e.date)} · Valid until ${esc(e.validUntil)}</div><div class="card-meta">${e.lines.length} item(s)</div></div> <div style="display:flex;align-items:center;gap:9px;"><div style="font-weight:800;font-size:16px;color:var(--soil)">$${total.toLocaleString()}</div>${badge(e.status)}</div> </div> </div>`;
-}).join(’’);
+  var ests=estFilter==='All'?DB.estimates:DB.estimates.filter(e=>e.status===estFilter);
+  var el=document.getElementById('estimate-list');
+  if(!ests.length){el.innerHTML=`<div class="empty-state"><div class="empty-icon">📋</div><p>No estimates.</p></div>`;return;}
+  el.innerHTML=ests.map(e=>{
+    var total=e.lines.reduce((s,l)=>s+l.qty*l.price,0);
+    return`<div class="card" onclick="showEstimateDetail('${esc(e.id)}')">
+      <div class="card-row">
+        <div style="flex:1"><div class="card-title">${esc(e.id)} — ${esc(e.client)}</div><div class="card-sub">${esc(e.date)} · Valid until ${esc(e.validUntil)}</div><div class="card-meta">${e.lines.length} item(s)</div></div>
+        <div style="display:flex;align-items:center;gap:9px;"><div style="font-weight:800;font-size:16px;color:var(--soil)">$${total.toLocaleString()}</div>${badge(e.status)}</div>
+      </div>
+    </div>`;
+  }).join('');
 }
 function showEstimateDetail(id){
-var e=DB.estimates.find(x=>x.id===id); if(!e)return;
-var total=e.lines.reduce((s,l)=>s+l.qty*l.price,0);
-document.getElementById(‘sheet-body’).innerHTML=` <div class="sheet-title">${esc(e.id)}</div> <div class="field-row"><div class="field-label">Client</div><div class="field-val">${esc(e.client)}</div></div> <div class="field-row"><div class="field-label">Dates</div><div class="field-val">${esc(e.date)} → Valid until ${esc(e.validUntil)}</div></div> <div class="field-row"><div class="field-label">Status</div><div class="field-val">${badge(e.status)}</div></div> ${e.notes?`<div class="field-row"><div class="field-label">Notes</div><div class="field-val">${esc(e.notes)}</div></div>`:''} <div class="field-row"><div class="field-label">Line Items</div> <table class="estimate-items"><thead><tr><th>Description</th><th>Qty</th><th>Unit</th><th>Price</th><th>Total</th></tr></thead> <tbody>${e.lines.map(l=>`<tr><td>${esc(l.desc)}</td><td>${l.qty}</td><td>${esc(l.unit)}</td><td>$${l.price}</td><td>$${(l.qty*l.price).toLocaleString()}</td></tr>`).join('')}</tbody> <tfoot><tr><td colspan="4" style="text-align:right;font-weight:800;">Total</td><td style="color:var(--green);font-size:16px;font-weight:800;">$${total.toLocaleString()}</td></tr></tfoot> </table> </div> <div class="sheet-actions"> <button class="btn btn-green btn-sm" onclick="openEstEditModal('${id}')">Edit</button> <button class="btn btn-blue btn-sm" onclick="markEstStatus('${id}','Sent')">Mark Sent</button> <button class="btn btn-green btn-sm" onclick="markEstStatus('${id}','Accepted')">✓ Accept</button> <button class="btn btn-blue btn-sm" onclick="printEstimate('${id}')">🖨️ Print</button> <button class="btn btn-danger btn-sm" onclick="deleteRecord('estimate','${id}')">Delete</button> </div>`;
-openSheet();
+  var e=DB.estimates.find(x=>x.id===id); if(!e)return;
+  var total=e.lines.reduce((s,l)=>s+l.qty*l.price,0);
+  document.getElementById('sheet-body').innerHTML=`
+    <div class="sheet-title">${esc(e.id)}</div>
+    <div class="field-row"><div class="field-label">Client</div><div class="field-val">${esc(e.client)}</div></div>
+    <div class="field-row"><div class="field-label">Dates</div><div class="field-val">${esc(e.date)} → Valid until ${esc(e.validUntil)}</div></div>
+    <div class="field-row"><div class="field-label">Status</div><div class="field-val">${badge(e.status)}</div></div>
+    ${e.notes?`<div class="field-row"><div class="field-label">Notes</div><div class="field-val">${esc(e.notes)}</div></div>`:''}
+    <div class="field-row"><div class="field-label">Line Items</div>
+      <table class="estimate-items"><thead><tr><th>Description</th><th>Qty</th><th>Unit</th><th>Price</th><th>Total</th></tr></thead>
+      <tbody>${e.lines.map(l=>`<tr><td>${esc(l.desc)}</td><td>${l.qty}</td><td>${esc(l.unit)}</td><td>$${l.price}</td><td>$${(l.qty*l.price).toLocaleString()}</td></tr>`).join('')}</tbody>
+      <tfoot><tr><td colspan="4" style="text-align:right;font-weight:800;">Total</td><td style="color:var(--green);font-size:16px;font-weight:800;">$${total.toLocaleString()}</td></tr></tfoot>
+      </table>
+    </div>
+    <div class="sheet-actions">
+      <button class="btn btn-green btn-sm" onclick="openEstEditModal('${id}')">Edit</button>
+      <button class="btn btn-blue btn-sm" onclick="markEstStatus('${id}','Sent')">Mark Sent</button>
+      <button class="btn btn-green btn-sm" onclick="markEstStatus('${id}','Accepted')">✓ Accept</button>
+      <button class="btn btn-blue btn-sm" onclick="printEstimate('${id}')">🖨️ Print</button>
+      <button class="btn btn-danger btn-sm" onclick="deleteRecord('estimate','${id}')">Delete</button>
+    </div>`;
+  openSheet();
 }
-function markEstStatus(id,status){var e=DB.estimates.find(x=>x.id===id);if(e){e.status=status;saveLocal();renderEstimates();closeSheet();toast(‘Estimate updated’);}}
+function markEstStatus(id,status){var e=DB.estimates.find(x=>x.id===id);if(e){e.status=status;saveLocal();renderEstimates();closeSheet();toast('Estimate updated');}}
 function printEstimate(id){
-var e=DB.estimates.find(x=>x.id===id); if(!e)return;
-var total=e.lines.reduce((s,l)=>s+l.qty*l.price,0);
-var co=CFG.company||‘GreenRoute Landscaping’;
-var w=window.open(’’,’_blank’);
-w.document.write(`<!DOCTYPE html><html><head><title>${e.id}</title><style>body{font-family:Georgia,serif;padding:48px;max-width:700px;margin:0 auto;color:#111;}h1{font-size:26px;color:#1E5C1E;}table{width:100%;border-collapse:collapse;margin-top:16px;}th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:#888;padding-bottom:8px;border-bottom:2px solid #ddd;}td{padding:10px 4px;border-bottom:1px solid #eee;font-size:14px;}tfoot td{font-weight:800;border-top:2px solid #ddd;border-bottom:none;font-size:16px;color:#1E5C1E;}.badge{display:inline-block;padding:3px 12px;border-radius:6px;font-size:11px;font-weight:800;text-transform:uppercase;background:#E8F5E8;color:#1E5C1E;}</style></head><body><h1>🌿 ${co}</h1><p style="color:#888;font-size:13px;margin-bottom:24px;">${CFG.phone||''} · ${CFG.email||''}</p><h2 style="font-size:18px;margin-bottom:4px;">Estimate ${e.id} <span class="badge">${e.status}</span></h2><p style="font-size:13px;color:#666;margin-bottom:16px;">Client: <strong>${e.client}</strong> · Issued: ${e.date} · Valid: ${e.validUntil}</p>${e.notes?`<p style="font-size:13px;color:#888;margin-bottom:12px;font-style:italic;">${e.notes}</p>`:''}<table><thead><tr><th>Description</th><th>Qty</th><th>Unit</th><th>Unit Price</th><th>Total</th></tr></thead><tbody>${e.lines.map(l=>`<tr><td>${l.desc}</td><td>${l.qty}</td><td>${l.unit}</td><td>$${l.price.toLocaleString()}</td><td>$${(l.qty*l.price).toLocaleString()}</td></tr>`).join('')}</tbody><tfoot><tr><td colspan="4" style="text-align:right;padding-right:12px;">Grand Total</td><td>$${total.toLocaleString()}</td></tr></tfoot></table><p style="margin-top:48px;font-size:12px;color:#aaa;">Valid until ${e.validUntil}. Thank you for considering ${co}.</p><script>window.print();<\/script></body></html>`);
+  var e=DB.estimates.find(x=>x.id===id); if(!e)return;
+  var total=e.lines.reduce((s,l)=>s+l.qty*l.price,0);
+  var co=CFG.company||'GreenRoute Landscaping';
+  var w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html><head><title>${e.id}</title><'+'style>body{font-family:Georgia,serif;padding:48px;max-width:700px;margin:0 auto;color:#111;}h1{font-size:26px;color:#1E5C1E;}table{width:100%;border-collapse:collapse;margin-top:16px;}th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:#888;padding-bottom:8px;border-bottom:2px solid #ddd;}td{padding:10px 4px;border-bottom:1px solid #eee;font-size:14px;}tfoot td{font-weight:800;border-top:2px solid #ddd;border-bottom:none;font-size:16px;color:#1E5C1E;}.badge{display:inline-block;padding:3px 12px;border-radius:6px;font-size:11px;font-weight:800;text-transform:uppercase;background:#E8F5E8;color:#1E5C1E;}</'+'style></head><body><h1>🌿 ${co}</h1><p style="color:#888;font-size:13px;margin-bottom:24px;">${CFG.phone||''} · ${CFG.email||''}</p><h2 style="font-size:18px;margin-bottom:4px;">Estimate ${e.id} <span class="badge">${e.status}</span></h2><p style="font-size:13px;color:#666;margin-bottom:16px;">Client: <strong>${e.client}</strong> · Issued: ${e.date} · Valid: ${e.validUntil}</p>${e.notes?`<p style="font-size:13px;color:#888;margin-bottom:12px;font-style:italic;">${e.notes}</p>`:''}<table><thead><tr><th>Description</th><th>Qty</th><th>Unit</th><th>Unit Price</th><th>Total</th></tr></thead><tbody>${e.lines.map(l=>`<tr><td>${l.desc}</td><td>${l.qty}</td><td>${l.unit}</td><td>$${l.price.toLocaleString()}</td><td>$${(l.qty*l.price).toLocaleString()}</td></tr>`).join('')}</tbody><tfoot><tr><td colspan="4" style="text-align:right;padding-right:12px;">Grand Total</td><td>$${total.toLocaleString()}</td></tr></tfoot></table><p style="margin-top:48px;font-size:12px;color:#aaa;">Valid until ${e.validUntil}. Thank you for considering ${co}.</p><script>window.print();<\/script></body></html>`);
 }
 // Estimate line-item editor
 function openEstEditModal(id){
-closeSheet();
-var e=DB.estimates.find(x=>x.id===id); if(!e)return;
-currentEstId=id; editingEstLines=JSON.parse(JSON.stringify(e.lines));
-document.getElementById(‘est-modal-title’).textContent=‘Edit ‘+id;
-renderEstModalBody(e);
-var em=document.getElementById(‘estimate-modal’); em.style.display=‘flex’; em.classList.add(‘open’);
+  closeSheet();
+  var e=DB.estimates.find(x=>x.id===id); if(!e)return;
+  currentEstId=id; editingEstLines=JSON.parse(JSON.stringify(e.lines));
+  document.getElementById('est-modal-title').textContent='Edit '+id;
+  renderEstModalBody(e);
+  var em=document.getElementById('estimate-modal'); em.style.display='flex'; em.classList.add('open');
 }
 function openNewEstModal(){
-currentEstId=null; editingEstLines=[];
-document.getElementById(‘est-modal-title’).textContent=‘New Estimate’;
-renderEstModalBody();
-var em=document.getElementById(‘estimate-modal’); em.style.display=‘flex’; em.classList.add(‘open’);
+  currentEstId=null; editingEstLines=[];
+  document.getElementById('est-modal-title').textContent='New Estimate';
+  renderEstModalBody();
+  var em=document.getElementById('estimate-modal'); em.style.display='flex'; em.classList.add('open');
 }
 function renderEstModalBody(e={}){
-document.getElementById(‘est-modal-body’).innerHTML=` <label>Client</label><select id="em-client">${clientNames().map(n=>`<option ${(e.client||’’)==n?‘selected’:’’}>${n}</option>`).join('')}</select> <div class="form-row"> <div><label>Date</label><input id="em-date" value="${esc(e.date||'')}"/></div> <div><label>Valid Until</label><input id="em-valid" value="${esc(e.validUntil||'')}"/></div> </div> <label>Status</label><select id="em-status">${['Draft','Sent','Accepted','Declined'].map(s=>`<option ${(e.status||‘Draft’)===s?‘selected’:’’}>${s}</option>`).join('')}</select> <label>Notes</label><textarea id="em-notes">${esc(e.notes||'')}</textarea> <label>Line Items</label> <table class="estimate-items"><thead><tr><th>Description</th><th>Qty</th><th>Unit</th><th>$/Unit</th><th></th></tr></thead> <tbody id="est-lines-body"></tbody></table>`;
+  document.getElementById('est-modal-body').innerHTML=`
+    <label>Client</label><select id="em-client">${clientNames().map(n=>`<option ${(e.client||'')==n?'selected':''}>${n}</option>`).join('')}</select>
+    <div class="form-row">
+      <div><label>Date</label><input id="em-date" value="${esc(e.date||'')}"/></div>
+      <div><label>Valid Until</label><input id="em-valid" value="${esc(e.validUntil||'')}"/></div>
+    </div>
+    <label>Status</label><select id="em-status">${['Draft','Sent','Accepted','Declined'].map(s=>`<option ${(e.status||'Draft')===s?'selected':''}>${s}</option>`).join('')}</select>
+    <label>Notes</label><textarea id="em-notes">${esc(e.notes||'')}</textarea>
+
+```
+<label>Line Items</label>
+<table class="estimate-items"><thead><tr><th>Description</th><th>Qty</th><th>Unit</th><th>$/Unit</th><th></th></tr></thead>
+<tbody id="est-lines-body"></tbody></table>`;
+```
+
 renderEstLines();
 }
 function renderEstLines(){
@@ -1156,7 +1192,7 @@ function printReport(){
   var body=document.getElementById('report-body').innerHTML;
   var co=CFG.company||'GreenRoute Landscaping';
   var w=window.open('','_blank');
-  w.document.write(`<!DOCTYPE html><html><head><title>${titles[reportTab]}</title><style>body{font-family:Georgia,serif;padding:36px;max-width:860px;margin:0 auto;color:#111;}h1{color:#1E5C1E;font-size:24px;}.report-section{margin-bottom:24px;border:1px solid #ddd;border-radius:10px;padding:16px;}h3{font-size:15px;margin-bottom:12px;color:#1E5C1E;}.stat-row{display:flex;gap:10px;margin-bottom:12px;}.stat-card{flex:1;border:1px solid #ddd;border-radius:8px;padding:10px;text-align:center;}.stat-val{font-size:18px;font-weight:800;}.stat-lbl{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.4px;}table{width:100%;border-collapse:collapse;font-size:13px;}th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:#888;padding-bottom:7px;border-bottom:2px solid #ddd;}td{padding:8px 0;border-bottom:1px solid #f0f0f0;}.badge{display:inline-block;padding:2px 8px;border-radius:5px;font-size:10px;font-weight:800;text-transform:uppercase;}.report-bar{height:8px;border-radius:99px;background:#1E5C1E;display:inline-block;}</style></head><body><h1>🌿 ${co}</h1><p style="color:#888;font-size:12px;margin-bottom:20px;">Report: ${titles[reportTab]} · ${new Date().toLocaleDateString()}</p>${body}<script>window.print();<\/script></body></html>`);
+  w.document.write(`<!DOCTYPE html><html><head><title>${titles[reportTab]}</title><'+'style>body{font-family:Georgia,serif;padding:36px;max-width:860px;margin:0 auto;color:#111;}h1{color:#1E5C1E;font-size:24px;}.report-section{margin-bottom:24px;border:1px solid #ddd;border-radius:10px;padding:16px;}h3{font-size:15px;margin-bottom:12px;color:#1E5C1E;}.stat-row{display:flex;gap:10px;margin-bottom:12px;}.stat-card{flex:1;border:1px solid #ddd;border-radius:8px;padding:10px;text-align:center;}.stat-val{font-size:18px;font-weight:800;}.stat-lbl{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.4px;}table{width:100%;border-collapse:collapse;font-size:13px;}th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:#888;padding-bottom:7px;border-bottom:2px solid #ddd;}td{padding:8px 0;border-bottom:1px solid #f0f0f0;}.badge{display:inline-block;padding:2px 8px;border-radius:5px;font-size:10px;font-weight:800;text-transform:uppercase;}.report-bar{height:8px;border-radius:99px;background:#1E5C1E;display:inline-block;}</'+'style></head><body><h1>🌿 ${co}</h1><p style="color:#888;font-size:12px;margin-bottom:20px;">Report: ${titles[reportTab]} · ${new Date().toLocaleDateString()}</p>${body}<script>window.print();<\/script></body></html>`);
 }
 
 // ═══════════════════════════════════════════════════════════
