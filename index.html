@@ -157,21 +157,6 @@ input,select,textarea,button{font-family:'DM Sans',sans-serif;}
 .form-hint{font-size:12px;color:var(–gray);line-height:1.6;margin-top:8px;background:var(–gray-lite);padding:10px 12px;border-radius:8px;border-left:3px solid var(–green);}
 
 /* ═══ CLOUD SETUP PANEL (full-screen step-by-step) ═══ */
-dialog#cloud-setup-dialog{border:none;border-radius:0;padding:0;margin:0;width:100%;max-width:100%;height:100%;max-height:100%;background:#fff;overflow-y:auto;}
-dialog#cloud-setup-dialog::backdrop{background:rgba(0,0,0,0.5);}
-.csd-inner{padding:24px 20px 48px;max-width:600px;margin:0 auto;}
-.setup-step{background:var(–off-white);border:2px solid var(–border);border-radius:var(–radius);padding:16px;margin-bottom:12px;}
-.setup-step-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:var(–green);color:#fff;border-radius:50%;font-size:13px;font-weight:800;margin-bottom:8px;}
-.setup-step h3{font-size:15px;font-weight:700;color:var(–soil);margin-bottom:6px;}
-.setup-step p{font-size:13px;color:var(–bark);line-height:1.6;}
-.setup-step a{color:var(–green);font-weight:700;}
-.setup-input-row{margin-top:10px;}
-.setup-input-row label{font-size:11px;font-weight:800;color:var(–gray);text-transform:uppercase;letter-spacing:0.8px;display:block;margin-bottom:5px;}
-.setup-input-row input{width:100%;padding:11px 13px;border-radius:9px;border:2px solid var(–border);font-size:14px;background:#fff;color:var(–soil);outline:none;font-family:‘DM Sans’,sans-serif;}
-.setup-input-row input:focus{border-color:var(–green);}
-.setup-status{font-size:12px;font-weight:700;margin-top:8px;min-height:18px;}
-.setup-status.ok{color:var(–green);}
-.setup-status.err{color:var(–red);}
 
 /* ═══ DETAIL SHEET ═══ */
 #detail-sheet{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-radius:22px 22px 0 0;padding:18px 18px 52px;box-shadow:0 -4px 30px rgba(0,0,0,0.15);z-index:500;max-height:82vh;overflow-y:auto;animation:slideUp 0.25s ease;}
@@ -242,7 +227,7 @@ dialog#cloud-setup-dialog::backdrop{background:rgba(0,0,0,0.5);}
 
 /* ═══ PRINT ═══ */
 @media print{
-#topbar,#nav,#toast,#config-banner,#detail-sheet,#sheet-overlay,.modal-overlay,#cloud-setup-dialog{display:none!important;}
+#topbar,#nav,#toast,#config-banner,#detail-sheet,#sheet-overlay,.modal-overlay{display:none!important;}
 body{background:#fff;}
 #content{padding:0;}
 .tab-panel{display:block!important;}
@@ -280,7 +265,6 @@ body{background:#fff;}
 <div id="topbar">
   <div class="logo">🌿 GreenRoute</div>
   <div class="topbar-right">
-    <div class="icon-btn" onclick="openCloudSetup()" title="Cloud Sync Setup">☁</div>
     <div class="icon-btn" onclick="openSettings()" title="Settings">⚙️</div>
     <button id="sync-btn" onclick="syncData()">↑ Sync</button>
   </div>
@@ -289,8 +273,8 @@ body{background:#fff;}
 <!-- CLOUD SETUP BANNER -->
 
 <div id="config-banner">
-  <span id="config-banner-text">⚠️ Cloud sync not set up — data is local only</span>
-  <button id="config-banner-btn" onclick="openCloudSetup()">Set Up Cloud Sync</button>
+  <span id="config-banner-text">⚠️ Cloud sync not configured — data is local only</span>
+  <button id="config-banner-btn" onclick="switchTab('cloud')">Set Up Cloud Sync</button>
 </div>
 
 <!-- CONTENT -->
@@ -376,6 +360,93 @@ body{background:#fff;}
   </div>
 </div>
 
+<!-- CLOUD SETUP -->
+
+<div class="tab-panel" id="panel-cloud">
+  <div class="section-title">☁ Cloud Sync Setup</div>
+
+  <!-- Status card -->
+
+  <div id="cloud-status-card" style="background:#fff;border:2px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;">
+    <div style="font-size:28px;" id="cloud-status-icon">⚠️</div>
+    <div>
+      <div style="font-weight:700;font-size:14px;" id="cloud-status-title">Not configured</div>
+      <div style="font-size:12px;color:var(--gray);margin-top:2px;" id="cloud-status-sub">Fill in the fields below to enable cloud sync.</div>
+    </div>
+  </div>
+
+  <div style="background:#fff;border:2px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;">
+    <div style="font-weight:800;font-size:13px;color:var(--green);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;">Step 1 — JSONBin Account</div>
+    <p style="font-size:13px;color:var(--bark);line-height:1.7;margin-bottom:10px;">
+      Create a free account at <strong>jsonbin.io</strong>, then click <strong>New Bin</strong>, type <code style="background:var(--gray-lite);padding:2px 6px;border-radius:4px;">{}</code> and save it. Copy the Bin ID from the URL bar.
+    </p>
+    <a href="https://jsonbin.io" target="_blank" style="display:inline-block;background:var(--green);color:#fff;padding:9px 18px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;">Open jsonbin.io ↗</a>
+  </div>
+
+  <div style="background:#fff;border:2px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;">
+    <div style="font-weight:800;font-size:13px;color:var(--green);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;">Step 2 — Enter Credentials</div>
+
+```
+<div style="margin-bottom:10px;">
+  <label style="font-size:11px;font-weight:800;color:var(--gray);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:5px;">Bin ID</label>
+  <input type="text" id="cs-bin-id"
+    placeholder="e.g. 64f3a1b2abc123def4567890"
+    autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+    style="width:100%;padding:11px 13px;border-radius:9px;border:2px solid var(--border);font-size:14px;background:#fff;color:var(--soil);outline:none;font-family:'DM Sans',sans-serif;"
+    onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border)'"/>
+</div>
+
+<div style="margin-bottom:10px;">
+  <label style="font-size:11px;font-weight:800;color:var(--gray);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:5px;">Master API Key (from jsonbin.io → API Keys)</label>
+  <input type="text" id="cs-api-key"
+    placeholder="$2a$10$..."
+    autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+    style="width:100%;padding:11px 13px;border-radius:9px;border:2px solid var(--border);font-size:14px;background:#fff;color:var(--soil);outline:none;font-family:'DM Sans',sans-serif;"
+    onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border)'"/>
+  <div style="font-size:11px;color:var(--gray);margin-top:4px;">Using type="text" so you can see what you paste. Keep this key private.</div>
+</div>
+```
+
+  </div>
+
+  <div style="background:#fff;border:2px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;">
+    <div style="font-weight:800;font-size:13px;color:var(--green);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;">Step 3 — Company Info (for printed documents)</div>
+
+```
+<div style="margin-bottom:10px;">
+  <label style="font-size:11px;font-weight:800;color:var(--gray);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:5px;">Company Name</label>
+  <input type="text" id="cs-company" placeholder="Your Landscaping Co."
+    style="width:100%;padding:11px 13px;border-radius:9px;border:2px solid var(--border);font-size:14px;background:#fff;color:var(--soil);outline:none;font-family:'DM Sans',sans-serif;"
+    onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border)'"/>
+</div>
+<div style="margin-bottom:10px;">
+  <label style="font-size:11px;font-weight:800;color:var(--gray);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:5px;">Phone</label>
+  <input type="tel" id="cs-phone" placeholder="(000) 000-0000"
+    style="width:100%;padding:11px 13px;border-radius:9px;border:2px solid var(--border);font-size:14px;background:#fff;color:var(--soil);outline:none;font-family:'DM Sans',sans-serif;"
+    onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border)'"/>
+</div>
+<div>
+  <label style="font-size:11px;font-weight:800;color:var(--gray);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:5px;">Email</label>
+  <input type="email" id="cs-email" placeholder="you@example.com"
+    style="width:100%;padding:11px 13px;border-radius:9px;border:2px solid var(--border);font-size:14px;background:#fff;color:var(--soil);outline:none;font-family:'DM Sans',sans-serif;"
+    onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border)'"/>
+</div>
+```
+
+  </div>
+
+  <div id="cs-status" style="font-size:13px;font-weight:700;min-height:20px;text-align:center;margin-bottom:10px;padding:8px;border-radius:8px;"></div>
+
+<button onclick="testAndSaveCloud()"
+style="width:100%;background:var(--green);color:#fff;border:none;border-radius:10px;padding:15px;font-size:16px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:.3px;">
+✓ Save & Test Connection
+</button>
+
+  <div style="font-size:12px;color:var(--gray);text-align:center;margin-top:12px;line-height:1.7;">
+    Free JSONBin tier: 10,000 req/month · 1MB per bin.<br/>Your data is stored in your private bin only.
+  </div>
+</div>
+
 </div><!-- /content -->
 
 <!-- BOTTOM NAV -->
@@ -387,6 +458,7 @@ body{background:#fff;}
   <button class="nav-btn"        id="nav-invoices"  onclick="switchTab('invoices')"> <span class="nav-icon">💵</span><span class="nav-label">Invoices</span> </button>
   <button class="nav-btn"        id="nav-estimates" onclick="switchTab('estimates')"><span class="nav-icon">📋</span><span class="nav-label">Estimates</span></button>
   <button class="nav-btn"        id="nav-reports"   onclick="switchTab('reports')">  <span class="nav-icon">📊</span><span class="nav-label">Reports</span>  </button>
+  <button class="nav-btn"        id="nav-cloud"     onclick="switchTab('cloud')">   <span class="nav-icon">☁</span><span class="nav-label">Sync</span>     </button>
 </div>
 
 <!-- DETAIL SHEET -->
@@ -409,69 +481,6 @@ body{background:#fff;}
 <!-- ══════════════════════════════════════════════════════
      CLOUD SETUP PANEL (full-screen, no modal issues)
      ══════════════════════════════════════════════════════ -->
-
-<dialog id="cloud-setup-dialog">
-<div class="csd-inner">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
-    <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--soil);">☁ Cloud Sync Setup</div>
-    <button onclick="closeCloudSetup()" style="background:var(--gray-lite);border:2px solid var(--border);border-radius:8px;padding:7px 14px;font-weight:700;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;">✕ Close</button>
-  </div>
-
-  <div class="setup-step">
-    <div class="setup-step-num">1</div>
-    <h3>Create a free JSONBin account</h3>
-    <p>Go to <strong>jsonbin.io</strong> and sign up for a free account. JSONBin stores your app data securely in the cloud so it syncs across all your devices.</p>
-    <div style="margin-top:10px;">
-      <a href="https://jsonbin.io" target="_blank" style="display:inline-block;background:var(--green);color:#fff;padding:8px 18px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;">Open jsonbin.io ↗</a>
-    </div>
-  </div>
-
-  <div class="setup-step">
-    <div class="setup-step-num">2</div>
-    <h3>Create a new Bin</h3>
-    <p>After logging in, click <strong>"Create Bin"</strong>. In the editor, type <code style="background:#F0F0F0;padding:2px 6px;border-radius:4px;font-size:13px;">{}</code> and click Save. Copy the <strong>Bin ID</strong> from the URL or the info panel — it looks like: <code style="background:#F0F0F0;padding:2px 6px;border-radius:4px;font-size:13px;">64f3a1b2abc123def456</code></p>
-    <div class="setup-input-row">
-      <label>Paste Your Bin ID Here</label>
-      <input type="text" id="cs-bin-id" placeholder="e.g. 64f3a1b2abc123def4567890" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-    </div>
-  </div>
-
-  <div class="setup-step">
-    <div class="setup-step-num">3</div>
-    <h3>Get your API Key</h3>
-    <p>In JSONBin, click your profile icon → <strong>"API Keys"</strong>. Copy your <strong>Master Key</strong> (starts with <code style="background:#F0F0F0;padding:2px 6px;border-radius:4px;font-size:13px;">$2a$10$</code>). Keep this private — it gives full access to your bins.</p>
-    <div class="setup-input-row">
-      <label>Paste Your Master Key Here</label>
-      <input type="password" id="cs-api-key" placeholder="$2a$10$…" autocomplete="new-password"/>
-    </div>
-  </div>
-
-  <div class="setup-step">
-    <div class="setup-step-num">4</div>
-    <h3>Your company info (for printed documents)</h3>
-    <div class="setup-input-row">
-      <label>Company Name</label>
-      <input type="text" id="cs-company" placeholder="Your Landscaping Co."/>
-    </div>
-    <div class="setup-input-row">
-      <label>Phone</label>
-      <input type="tel" id="cs-phone" placeholder="(000) 000-0000"/>
-    </div>
-    <div class="setup-input-row">
-      <label>Email</label>
-      <input type="email" id="cs-email" placeholder="you@example.com"/>
-    </div>
-  </div>
-
-  <div id="cs-status" class="setup-status" style="text-align:center;font-size:13px;min-height:20px;margin-bottom:8px;"></div>
-
-  <div style="display:flex;gap:10px;">
-    <button onclick="testAndSaveCloud()" style="flex:1;background:var(--green);color:#fff;border:none;border-radius:10px;padding:14px;font-size:15px;font-weight:800;cursor:pointer;font-family:'DM Sans',sans-serif;">✓ Save &amp; Test Connection</button>
-  </div>
-  <div style="font-size:12px;color:var(--gray);text-align:center;margin-top:10px;line-height:1.6;">
-    Your data stays in your private JSONBin. Free tier supports up to 10,000 requests/month and 1MB per bin.
-  </div>
-</div></dialog>
 
 <!-- SETTINGS MODAL -->
 
@@ -597,7 +606,7 @@ function saveLocal(){ localStorage.setItem('gr_db_v3', JSON.stringify(DB)); }
 //  JSONBIN
 // ═══════════════════════════════════════════════════════════
 async function syncData(){
-  if(!CFG.binId||!CFG.apiKey){ openCloudSetup(); return; }
+  if(!CFG.binId||!CFG.apiKey){ switchTab('cloud'); return; }
   const btn=document.getElementById('sync-btn');
   btn.textContent='↻ Syncing…'; btn.disabled=true;
   try{
@@ -633,8 +642,7 @@ async function loadFromCloud(){
 //  CLOUD SETUP PANEL
 // ═══════════════════════════════════════════════════════════
 function openCloudSetup(){
-  var dlg=document.getElementById('cloud-setup-dialog');
-  // Safely populate fields
+  // Populate fields from saved config
   var fields={
     'cs-bin-id': CFG.binId||'',
     'cs-api-key': CFG.apiKey||'',
@@ -647,25 +655,11 @@ function openCloudSetup(){
     if(el) el.value=fields[id];
   });
   var st=document.getElementById('cs-status');
-  if(st){st.textContent='';st.className='setup-status';}
-  // Use showModal() — works everywhere including iOS PWA
-  if(typeof dlg.showModal==='function'){
-    dlg.showModal();
-  } else {
-    // Fallback for very old browsers
-    dlg.setAttribute('open','');
-    dlg.style.cssText='display:block;position:fixed;inset:0;width:100%;height:100%;background:#fff;z-index:9999;overflow-y:auto;border:none;padding:0;margin:0;';
-  }
+  if(st){st.textContent='';st.style.background='';}
+  updateCloudStatusCard();
+  switchTab('cloud');
 }
-function closeCloudSetup(){
-  var dlg=document.getElementById('cloud-setup-dialog');
-  if(typeof dlg.close==='function'){
-    dlg.close();
-  } else {
-    dlg.removeAttribute('open');
-    dlg.style.display='none';
-  }
-}
+function closeCloudSetup(){ switchTab('clients'); }
 
 async function testAndSaveCloud(){
   var binId=document.getElementById('cs-bin-id').value.trim();
@@ -677,7 +671,9 @@ async function testAndSaveCloud(){
 
   if(!binId||!apiKey){
     statusEl.textContent='⚠️ Please enter both Bin ID and API Key.';
-    statusEl.className='setup-status err'; return;
+    statusEl.style.color='var(--gold)';
+    statusEl.style.background='var(--gold-bg)';
+    return;
   }
   statusEl.textContent='Testing connection…';
   statusEl.className='setup-status';
@@ -693,12 +689,16 @@ async function testAndSaveCloud(){
     CFG.company=company; CFG.phone=phone; CFG.email=email;
     localStorage.setItem('gr_cfg_v3',JSON.stringify(CFG));
     updateBanner();
-    statusEl.textContent='✅ Connection successful! Settings saved.';
-    statusEl.className='setup-status ok';
-    setTimeout(()=>{ closeCloudSetup(); loadFromCloud(); },1400);
+    statusEl.textContent='✅ Connected! Settings saved. Loading your data…';
+    statusEl.style.color='var(--green)';
+    statusEl.style.background='var(--green-bg)';
+    updateCloudStatusCard();
+    updateBanner();
+    setTimeout(function(){ loadFromCloud(); },1200);
   }catch(e){
     statusEl.textContent='❌ '+e.message;
-    statusEl.className='setup-status err';
+    statusEl.style.color='var(--red)';
+    statusEl.style.background='var(--red-bg)';
   }
 }
 
@@ -729,6 +729,28 @@ function saveSettings(){
 function updateBanner(){
   document.getElementById('config-banner').classList.toggle('hidden',!!(CFG.binId&&CFG.apiKey));
 }
+function updateCloudStatusCard(){
+  var icon=document.getElementById('cloud-status-icon');
+  var title=document.getElementById('cloud-status-title');
+  var sub=document.getElementById('cloud-status-sub');
+  var card=document.getElementById('cloud-status-card');
+  if(!icon||!title||!sub||!card) return;
+  if(CFG.binId&&CFG.apiKey){
+    icon.textContent='✅';
+    title.textContent='Cloud sync configured';
+    title.style.color='var(--green)';
+    sub.textContent='Bin: '+CFG.binId.substring(0,12)+'… · Tap Sync in top bar to push data.';
+    card.style.borderColor='var(--green)';
+    card.style.background='var(--green-bg)';
+  } else {
+    icon.textContent='⚠️';
+    title.textContent='Not configured';
+    title.style.color='var(--gold)';
+    sub.textContent='Fill in the fields below to enable cloud sync.';
+    card.style.borderColor='var(--border)';
+    card.style.background='#fff';
+  }
+}
 
 // ═══════════════════════════════════════════════════════════
 //  TABS
@@ -737,9 +759,18 @@ function switchTab(tab){
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('panel-'+tab).classList.add('active');
-  document.getElementById('nav-'+tab).classList.add('active');
+  var navBtn=document.getElementById('nav-'+tab);
+  if(navBtn) navBtn.classList.add('active');
   closeSheet();
   if(tab==='reports') renderReport();
+  if(tab==='cloud'){
+    // Always populate fields fresh from saved config
+    var fields={'cs-bin-id':CFG.binId||'','cs-api-key':CFG.apiKey||'','cs-company':CFG.company||'','cs-phone':CFG.phone||'','cs-email':CFG.email||''};
+    Object.keys(fields).forEach(function(id){var el=document.getElementById(id);if(el)el.value=fields[id];});
+    var st=document.getElementById('cs-status');
+    if(st){st.textContent='';st.style.background='';}
+    updateCloudStatusCard();
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1225,6 +1256,7 @@ function closeSheet(){document.getElementById(‘detail-sheet’).classList.remo
 function renderAll(){renderClients();renderJobs();renderWorkers();renderInvoices();renderEstimates();}
 
 updateBanner();
+updateCloudStatusCard();
 renderAll();
 if(CFG.binId&&CFG.apiKey) loadFromCloud();
 
