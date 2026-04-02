@@ -335,6 +335,39 @@ textarea.minput{resize:vertical;min-height:68px}
   <div id="jb-list"></div>
 </div>
 
+
+<!-- ROUTE BUILDER TAB -->
+<div class="tab" id="tab-routes">
+  <div class="page-title">🗺 Route Builder</div>
+  <div class="bar">
+    <input class="search" id="rt-date" placeholder="Route date (e.g. Mon Apr 7)" style="flex:1">
+    <button class="btn btn-g btn-sm" onclick="createRoute()">+ New Route</button>
+  </div>
+  <div id="route-list"></div>
+
+  <!-- Active route builder -->
+  <div id="route-builder" style="display:none">
+    <div style="background:var(--surface);border:2px solid var(--g600);border-radius:var(--radius);padding:14px;margin-bottom:12px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div style="font-weight:800;font-size:15px" id="rb-title">Route for —</div>
+        <div style="display:flex;gap:7px">
+          <button class="btn btn-b btn-sm" onclick="openAllInMaps()">🗺 Open All in Maps</button>
+          <button class="btn btn-r btn-sm" onclick="clearRoute()">Clear</button>
+        </div>
+      </div>
+      <div id="rb-stops" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div id="rb-empty" style="font-size:13px;color:var(--ink3);text-align:center;padding:16px 0">
+        No stops yet — tap <strong>+ Route</strong> on any client card to add them here.
+      </div>
+    </div>
+    <div style="background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:14px">
+      <div style="font-weight:800;font-size:13px;color:var(--ink3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Add Client to Route</div>
+      <input class="search" id="rb-search" placeholder="Search clients to add…" oninput="renderRouteSearch()" style="width:100%;margin-bottom:9px">
+      <div id="rb-search-results"></div>
+    </div>
+  </div>
+</div>
+
 <!-- WORKERS TAB -->
 <div class="tab" id="tab-workers">
   <div class="page-title">👷 Workers</div>
@@ -453,6 +486,7 @@ textarea.minput{resize:vertical;min-height:68px}
 <div id="nav">
   <button class="nb on" id="nb-clients"   onclick="go('clients')">  <span class="nb-ico">👤</span><span class="nb-lbl">Clients</span>  </button>
   <button class="nb"    id="nb-schedule"  onclick="go('schedule')"> <span class="nb-ico">📅</span><span class="nb-lbl">Schedule</span> </button>
+  <button class="nb"    id="nb-routes"    onclick="go('routes')">   <span class="nb-ico">🗺</span><span class="nb-lbl">Routes</span>    </button>
   <button class="nb"    id="nb-workers"   onclick="go('workers')">  <span class="nb-ico">👷</span><span class="nb-lbl">Workers</span>  </button>
   <button class="nb"    id="nb-invoices"  onclick="go('invoices')"> <span class="nb-ico">💵</span><span class="nb-lbl">Invoices</span> </button>
   <button class="nb"    id="nb-estimates" onclick="go('estimates')"><span class="nb-ico">📋</span><span class="nb-lbl">Estimates</span></button>
@@ -491,7 +525,7 @@ textarea.minput{resize:vertical;min-height:68px}
 /* ═══════════════════════════════════════════════
    DATA LAYER
    ═══════════════════════════════════════════════ */
-const EMPTY_DB = {clients:[],jobs:[],workers:[],invoices:[],estimates:[]};
+const EMPTY_DB = {clients:[],jobs:[],workers:[],invoices:[],estimates:[],routes:[]};
 let DB  = JSON.parse(localStorage.getItem('gr_db') || 'null') || JSON.parse(JSON.stringify(EMPTY_DB));
 let CFG = JSON.parse(localStorage.getItem('gr_cfg') || '{}');
 
@@ -527,6 +561,7 @@ function go(tab) {
   curTab = tab;
   if (tab === 'reports') renderReport();
   if (tab === 'sync') loadSyncFields();
+  if (tab === 'routes') renderRoutes();
 }
 function goSync() { go('sync'); }
 
@@ -589,6 +624,7 @@ document.getElementById('modal').addEventListener('click', function(e) {
    ═══════════════════════════════════════════════ */
 let jobFilter='All', invFilter='All', estFilter='All', reportType='billing';
 let lboxClientId=null, lboxPhotoIdx=null;
+let activeRoute = null;
 
 function renderClients() {
   const q = (document.getElementById('cl-search')||{value:''}).value.toLowerCase();
@@ -607,8 +643,8 @@ function renderClients() {
       : `<div class="cthumb-ph">🏡</div>`;
     const rec = c.recurringSchedule
       ? `<span class="rtag">🔁 ${esc(c.recurringSchedule.type)}</span>` : '';
-    return `<div class="card" onclick="showClient(${c.id})">
-      <div class="crow">
+    return `<div class="card">
+      <div class="crow" onclick="showClient(${c.id})" style="cursor:pointer">
         ${thumb}
         <div style="flex:1;min-width:0">
           <div class="crow"><div class="ctitle">${esc(c.name)}</div>${badge(c.status||'Active')}</div>
@@ -618,6 +654,11 @@ function renderClients() {
           </div>
         </div>
       </div>
+      ${c.address ? `<div style="display:flex;gap:7px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border2)">
+        <button class="btn btn-b btn-sm" style="flex:1" onclick="openMaps('${esc(c.address)}')">🗺 Maps</button>
+        <button class="btn btn-g btn-sm" style="flex:1" onclick="openForm('client',${c.id});event.stopPropagation()">Edit</button>
+        <button class="btn btn-sm" style="flex:1;background:var(--p100);color:var(--p600);border:1.5px solid var(--p100)" onclick="addToRoute(${c.id});event.stopPropagation()">+ Route</button>
+      </div>` : ''}
     </div>`;
   }).join('');
 }
@@ -646,6 +687,8 @@ function showClient(id) {
     ${c.notes ? `<div class="frow"><div class="flbl">Notes</div><div class="fval">${esc(c.notes)}</div></div>` : ''}
     <div class="frow"><div class="flbl">Photos (${photos.length})</div>${photoGrid}</div>
     <div class="sacts">
+      ${c.address ? `<button class="btn btn-b btn-sm" onclick="openMaps('${esc(c.address)}')">🗺 Get Directions</button>` : ''}
+      <button class="btn btn-sm" style="background:var(--p100);color:var(--p600);border:1.5px solid var(--p100)" onclick="addToRoute(${id})">+ Add to Route</button>
       <button class="btn btn-g btn-sm" onclick="openForm('client',${id})">Edit</button>
       <button class="btn btn-r btn-sm" onclick="delRecord('client',${id})">Delete</button>
       <button class="btn btn-c btn-sm" onclick="closeSheet()">Close</button>
@@ -1449,6 +1492,7 @@ async function loadFromCloud() {
         DB.workers   = DB.workers||[];
         DB.invoices  = DB.invoices||[];
         DB.estimates = DB.estimates||[];
+        DB.routes    = DB.routes||[];
         save(); renderAll(); toast('☁ Loaded from cloud');
       }
     }
@@ -1464,6 +1508,7 @@ function renderAll() {
   renderWorkers();
   renderInvoices();
   renderEstimates();
+  renderRoutes();
 }
 
 /* ═══════════════════════════════════════════════
@@ -1546,6 +1591,240 @@ function printViaFrame(htmlContent) {
       if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
     }, 3000);
   };
+}
+
+
+/* ═══════════════════════════════════════════════
+   MAPS & ROUTING
+   ═══════════════════════════════════════════════ */
+
+// Open Apple Maps / Google Maps with directions from current location
+function openMaps(address) {
+  if (!address) return;
+  const encoded = encodeURIComponent(address);
+  // iOS: use Apple Maps with directions from current location
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const isMac = /Mac/.test(navigator.userAgent) && !isIOS;
+  if (isIOS || isMac) {
+    window.open('maps://?daddr=' + encoded + '&dirflg=d', '_blank');
+  } else {
+    // Android / desktop: Google Maps
+    window.open('https://www.google.com/maps/dir/?api=1&destination=' + encoded + '&travelmode=driving', '_blank');
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   ROUTE BUILDER
+   ═══════════════════════════════════════════════ */
+
+function createRoute() {
+  const date = document.getElementById('rt-date').value.trim() || 'New Route';
+  activeRoute = {id: Date.now(), date: date, stops: []};
+  document.getElementById('route-builder').style.display = 'block';
+  document.getElementById('rb-title').textContent = 'Route for ' + date;
+  renderActiveRoute();
+  renderRouteSearch();
+}
+
+function renderRoutes() {
+  var el = document.getElementById('route-list');
+  if (!el) return;
+  var routes = DB.routes || [];
+  if (!routes.length && !activeRoute) {
+    el.innerHTML = '<div class="empty"><div class="empty-ico">🗺</div>'
+      + '<p>No saved routes yet.</p>'
+      + '<p style="font-size:12px;margin-top:6px;color:var(--ink3)">Enter a date above and tap <strong>+ New Route</strong> to start building a day&#39;s stops.</p>'
+      + '</div>';
+    return;
+  }
+  el.innerHTML = routes.map(function(r) {
+    var stops = r.stops || [];
+    var stopLines = stops.map(function(s,i) {
+      var c = DB.clients.find(function(x){ return x.id === s.clientId; });
+      return c ? '<div class="cmeta" style="margin-top:3px">' + (i+1) + '. ' + esc(c.name) + (s.time ? ' · ' + esc(s.time) : '') + '</div>' : '';
+    }).join('');
+    var addrs = stops.map(function(s) {
+      var c = DB.clients.find(function(x){ return x.id === s.clientId; });
+      return c ? c.address : null;
+    }).filter(Boolean);
+    var mapsBtn = addrs.length > 1 ? '<button class="btn btn-b btn-sm" style="flex:1" onclick="openAllInMaps(' + r.id + ')">🗺 Open Route</button>' : '';
+    return '<div class="card">'
+      + '<div class="crow"><div style="flex:1">'
+      + '<div class="ctitle">📅 ' + esc(r.date) + '</div>'
+      + '<div class="csub">' + stops.length + ' stop' + (stops.length!==1?'s':'') + '</div>'
+      + stopLines + '</div></div>'
+      + '<div style="display:flex;gap:7px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border2)">'
+      + mapsBtn
+      + '<button class="btn btn-g btn-sm" style="flex:1" onclick="editSavedRoute(' + r.id + ')">Edit</button>'
+      + '<button class="btn btn-r btn-sm" onclick="deleteSavedRoute(' + r.id + ')">Delete</button>'
+      + '</div></div>';
+  }).join('');
+}
+function renderActiveRoute() {
+  var stopsEl = document.getElementById('rb-stops');
+  var emptyEl = document.getElementById('rb-empty');
+  if (!activeRoute || !activeRoute.stops.length) {
+    if (stopsEl) stopsEl.innerHTML = '';
+    if (emptyEl) emptyEl.style.display = 'block';
+    var old = document.getElementById('rb-action-row');
+    if (old) old.remove();
+    return;
+  }
+  if (emptyEl) emptyEl.style.display = 'none';
+  stopsEl.innerHTML = activeRoute.stops.map(function(s, i) {
+    var c = DB.clients.find(function(x){ return x.id === s.clientId; });
+    if (!c) return '';
+    var upBtn   = i > 0
+      ? '<button onclick="moveStop('+i+',-1)" style="background:none;border:none;font-size:14px;cursor:pointer;padding:0;line-height:1">▲</button>'
+      : '<div style="height:18px"></div>';
+    var downBtn = i < activeRoute.stops.length-1
+      ? '<button onclick="moveStop('+i+',1)" style="background:none;border:none;font-size:14px;cursor:pointer;padding:0;line-height:1">▼</button>'
+      : '<div style="height:18px"></div>';
+    return '<div style="display:flex;align-items:center;gap:9px;background:var(--bg);border-radius:9px;padding:10px 12px">'
+      + '<div style="width:26px;height:26px;border-radius:7px;background:var(--g600);color:#fff;'
+      + 'display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0">'+(i+1)+'</div>'
+      + '<div style="flex:1;min-width:0">'
+      + '<div style="font-weight:700;font-size:13px">'+esc(c.name)+'</div>'
+      + '<div style="font-size:11px;color:var(--ink3)">'+esc(c.address)+'</div>'
+      + '</div>'
+      + '<input type="text" value="'+esc(s.time||'')+'" placeholder="Time"'
+      + ' style="width:72px;padding:5px 7px;border:1.5px solid var(--border);border-radius:7px;font-size:12px;font-family:DM Sans,sans-serif"'
+      + ' onchange="activeRoute.stops['+i+'].time=this.value">'
+      + '<div style="display:flex;flex-direction:column;gap:3px">'+upBtn+downBtn+'</div>'
+      + '<button onclick="removeStop('+i+')" style="background:none;border:none;color:var(--r600);font-size:18px;cursor:pointer;padding:0;flex-shrink:0">✕</button>'
+      + '</div>';
+  }).join('');
+  if (!document.getElementById('rb-action-row')) {
+    var actionRow = document.createElement('div');
+    actionRow.id = 'rb-action-row';
+    actionRow.style.cssText = 'display:flex;gap:8px;margin-top:10px';
+    actionRow.innerHTML = '<button class="btn btn-g btn-sm" style="flex:1" onclick="saveActiveRoute()">💾 Save Route</button>'
+      + '<button class="btn btn-b btn-sm" style="flex:1" onclick="openAllInMaps()">🗺 Open in Maps</button>';
+    stopsEl.parentNode.appendChild(actionRow);
+  }
+}
+function renderRouteSearch() {
+  var q = (document.getElementById('rb-search')||{value:''}).value.toLowerCase();
+  var el = document.getElementById('rb-search-results');
+  if (!el) return;
+  var alreadyIn = (activeRoute ? activeRoute.stops : []).map(function(s){ return s.clientId; });
+  var list = DB.clients
+    .filter(function(c){ return c.address && !alreadyIn.includes(c.id); })
+    .filter(function(c){ return !q || c.name.toLowerCase().includes(q) || c.address.toLowerCase().includes(q); });
+  if (!list.length) {
+    el.innerHTML = '<div style="font-size:13px;color:var(--ink3);text-align:center;padding:10px">No clients to add</div>';
+    return;
+  }
+  el.innerHTML = list.map(function(c) {
+    var nextDiv = c.nextJob ? '<div style="font-size:10px;color:var(--g600);font-weight:700">Next: '+esc(c.nextJob)+'</div>' : '';
+    return '<div style="display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--border2)">'
+      + '<div style="flex:1;min-width:0">'
+      + '<div style="font-weight:700;font-size:13px">'+esc(c.name)+'</div>'
+      + '<div style="font-size:11px;color:var(--ink3)">'+esc(c.address)+'</div>'
+      + nextDiv + '</div>'
+      + '<button class="btn btn-b btn-sm" onclick="openMapsForClient('+c.id+')">🗺</button>'
+      + '<button class="btn btn-g btn-sm" onclick="addStopToActive('+c.id+')">+ Add</button>'
+      + '</div>';
+  }).join('');
+}
+
+function openMapsForClient(clientId) {
+  var c = DB.clients.find(function(x){ return x.id === clientId; });
+  if (c && c.address) openMaps(c.address);
+}
+function addStopToActive(clientId) {
+  if (!activeRoute) {
+    const date = (document.getElementById('rt-date')||{value:''}).value.trim() || 'New Route';
+    activeRoute = {id: Date.now(), date: date, stops: []};
+    document.getElementById('route-builder').style.display = 'block';
+    document.getElementById('rb-title').textContent = 'Route for ' + date;
+  }
+  if (activeRoute.stops.find(s => s.clientId === clientId)) return;
+  activeRoute.stops.push({clientId: clientId, time: '', order: activeRoute.stops.length});
+  renderActiveRoute();
+  renderRouteSearch();
+}
+
+// Called from client card "+ Route" button anywhere in the app
+function addToRoute(clientId) {
+  go('routes');
+  setTimeout(() => addStopToActive(clientId), 100);
+}
+
+function moveStop(idx, dir) {
+  const stops = activeRoute.stops;
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= stops.length) return;
+  [stops[idx], stops[newIdx]] = [stops[newIdx], stops[idx]];
+  renderActiveRoute();
+}
+
+function removeStop(idx) {
+  activeRoute.stops.splice(idx, 1);
+  renderActiveRoute();
+  renderRouteSearch();
+}
+
+function saveActiveRoute() {
+  if (!activeRoute || !activeRoute.stops.length) { toast('Add at least one stop first'); return; }
+  if (!DB.routes) DB.routes = [];
+  const existing = DB.routes.findIndex(r => r.id === activeRoute.id);
+  if (existing > -1) DB.routes[existing] = activeRoute;
+  else DB.routes.unshift(activeRoute);
+  save();
+  renderRoutes();
+  toast('Route saved ✓');
+}
+
+function clearRoute() {
+  if (!confirm('Clear the current route?')) return;
+  activeRoute = null;
+  document.getElementById('route-builder').style.display = 'none';
+  document.getElementById('rb-action-row') && document.getElementById('rb-action-row').remove();
+  renderRoutes();
+}
+
+function editSavedRoute(id) {
+  activeRoute = JSON.parse(JSON.stringify(DB.routes.find(r => r.id === id)));
+  document.getElementById('route-builder').style.display = 'block';
+  document.getElementById('rb-title').textContent = 'Route for ' + activeRoute.date;
+  renderActiveRoute();
+  renderRouteSearch();
+  window.scrollTo(0, 0);
+}
+
+function deleteSavedRoute(id) {
+  if (!confirm('Delete this route?')) return;
+  DB.routes = DB.routes.filter(r => r.id !== id);
+  save(); renderRoutes(); toast('Route deleted');
+}
+
+// Open all stops as a multi-stop route in Maps
+function openAllInMaps(routeId) {
+  const route = routeId ? DB.routes.find(r => r.id === routeId) : activeRoute;
+  if (!route || !route.stops.length) return;
+  const addresses = route.stops.map(s => {
+    const c = DB.clients.find(x => x.id === s.clientId);
+    return c ? c.address : null;
+  }).filter(Boolean);
+  if (!addresses.length) return;
+
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  if (isIOS && addresses.length <= 3) {
+    // Apple Maps supports up to 3 waypoints via URL
+    const daddr = addresses[addresses.length - 1];
+    const waypoints = addresses.slice(0, -1).map(a => encodeURIComponent(a)).join(',');
+    window.open('maps://?daddr=' + encodeURIComponent(daddr) + (waypoints ? '&sadaddr='+waypoints : '') + '&dirflg=d', '_blank');
+  } else {
+    // Google Maps: use waypoints param (up to 8 waypoints)
+    const origin = encodeURIComponent(addresses[0]);
+    const dest   = encodeURIComponent(addresses[addresses.length - 1]);
+    const waypts = addresses.slice(1, -1).map(a => encodeURIComponent(a)).join('|');
+    let url = 'https://www.google.com/maps/dir/?api=1&origin=' + origin + '&destination=' + dest;
+    if (waypts) url += '&waypoints=' + waypts;
+    url += '&travelmode=driving';
+    window.open(url, '_blank');
+  }
 }
 
 </script>
