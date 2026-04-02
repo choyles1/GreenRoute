@@ -1087,13 +1087,10 @@ const PRINT_CSS_BASE = [
 function printInv(id) {
   const inv = DB.invoices.find(x=>x.id===id); if (!inv) return;
   const co = CFG.company||'GreenRoute Landscaping';
-  const w = window.open('','_blank');
   const bg = inv.status==='Paid'?'#D6EDD6':'#FEF3C7';
   const fc = inv.status==='Paid'?'#145214':'#92400E';
-  const styleOpen = '<' + 'style>';
-  const styleClose = '</' + 'style>';
-  w.document.write('<!DOCTYPE html><html><head><title>'+inv.id+'</title>'
-    +styleOpen+PRINT_CSS_BASE+styleClose
+  const html = '<!DOCTYPE html><html><head><title>'+inv.id+'</title>'
+    +'<'+'style>'+PRINT_CSS_BASE+'<'+'/style>'
     +'</head><body>'
     +'<h1>🌿 '+co+'</h1>'
     +'<p class="sub">'+esc(CFG.phone||'')+' · '+esc(CFG.email||'')+'</p>'
@@ -1105,18 +1102,16 @@ function printInv(id) {
     +'</table>'
     +(inv.notes?'<p style="margin-top:18px;font-size:13px;color:#666">Notes: '+esc(inv.notes)+'</p>':'')
     +'<p style="margin-top:44px;font-size:12px;color:#aaa">Thank you — '+co+'</p>'
-    +'<'+'script>window.print()<\/script></body></html>');
+    +'</body></html>';
+  printViaFrame(html);
 }
 
 function printEst(id) {
   const e = DB.estimates.find(x=>x.id===id); if (!e) return;
   const total = e.lines.reduce((s,l)=>s+l.qty*l.price,0);
   const co = CFG.company||'GreenRoute Landscaping';
-  const w = window.open('','_blank');
-  const styleOpen = '<' + 'style>';
-  const styleClose = '</' + 'style>';
-  w.document.write('<!DOCTYPE html><html><head><title>'+e.id+'</title>'
-    +styleOpen+PRINT_CSS_BASE+styleClose
+  const html = '<!DOCTYPE html><html><head><title>'+e.id+'</title>'
+    +'<'+'style>'+PRINT_CSS_BASE+'<'+'/style>'
     +'</head><body>'
     +'<h1>🌿 '+co+'</h1>'
     +'<p class="sub">'+esc(CFG.phone||'')+' · '+esc(CFG.email||'')+'</p>'
@@ -1129,19 +1124,15 @@ function printEst(id) {
     +'<tfoot><tr><td colspan="4" style="text-align:right;padding-right:10px">Grand Total</td><td>$'+total.toLocaleString()+'</td></tr></tfoot>'
     +'</table>'
     +'<p style="margin-top:44px;font-size:12px;color:#aaa">Valid until '+esc(e.validUntil)+' — '+co+'</p>'
-    +'<'+'script>window.print()<\/script></body></html>');
+    +'</body></html>';
+  printViaFrame(html);
 }
 
 function printReport() {
   const titles = {billing:'Billing Summary',clients:'Revenue by Client',crew:'Crew Productivity'};
   const body = document.getElementById('rpt-body').innerHTML;
   const co = CFG.company||'GreenRoute Landscaping';
-  const w = window.open('','_blank');
-  const styleOpen = '<' + 'style>';
-  const styleClose = '</' + 'style>';
-  w.document.write('<!DOCTYPE html><html><head><title>'+titles[reportType]+'</title>'
-    +styleOpen
-    +'body{font-family:Georgia,serif;padding:36px;max-width:860px;margin:0 auto;color:#111}'
+  const rptCSS = 'body{font-family:Georgia,serif;padding:36px;max-width:860px;margin:0 auto;color:#111}'
     +'h1{color:#1A6B1A;font-size:22px}.rsection{margin-bottom:22px;border:1px solid #ddd;border-radius:9px;padding:14px}'
     +'h3{font-size:14px;margin-bottom:10px;color:#1A6B1A}.stats{display:flex;gap:8px;margin-bottom:10px}'
     +'.stat{flex:1;border:1px solid #ddd;border-radius:7px;padding:9px;text-align:center}'
@@ -1150,13 +1141,15 @@ function printReport() {
     +'th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:#888;padding-bottom:6px;border-bottom:2px solid #ddd}'
     +'td{padding:7px 0;border-bottom:1px solid #f0f0f0}'
     +'.badge{display:inline-block;padding:2px 7px;border-radius:5px;font-size:10px;font-weight:800;text-transform:uppercase}'
-    +'.rbar{height:8px;border-radius:99px;background:#1A6B1A;display:inline-block}'
-    +styleClose
+    +'.rbar{height:8px;border-radius:99px;background:#1A6B1A;display:inline-block}';
+  const html = '<!DOCTYPE html><html><head><title>'+titles[reportType]+'</title>'
+    +'<'+'style>'+rptCSS+'<'+'/style>'
     +'</head><body>'
     +'<h1>🌿 '+co+'</h1>'
     +'<p style="color:#888;font-size:12px;margin-bottom:18px">'+titles[reportType]+' · '+new Date().toLocaleDateString()+'</p>'
     +body
-    +'<'+'script>window.print()<\/script></body></html>');
+    +'</body></html>';
+  printViaFrame(html);
 }
 
 /* ═══════════════════════════════════════════════
@@ -1520,6 +1513,40 @@ if (CFG.binId && CFG.apiKey) loadFromCloud();
   mlink.href = url;
   document.head.appendChild(mlink);
 })();
+
+
+/* ── Print via hidden iframe — keeps app in foreground on iOS ── */
+function printViaFrame(htmlContent) {
+  // Remove any existing print frame
+  var old = document.getElementById('print-frame');
+  if (old) old.parentNode.removeChild(old);
+
+  var iframe = document.createElement('iframe');
+  iframe.id = 'print-frame';
+  iframe.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;border:none;opacity:0;pointer-events:none';
+  document.body.appendChild(iframe);
+
+  var doc = iframe.contentWindow.document;
+  doc.open();
+  doc.write(htmlContent);
+  doc.close();
+
+  // Wait for iframe content to render, then print
+  iframe.onload = function() {
+    try {
+      iframe.contentWindow.focus();
+      iframe.contentWindow.print();
+    } catch(e) {
+      // Fallback for browsers that block iframe printing
+      var w = window.open('', '_blank');
+      if (w) { w.document.write(htmlContent); w.document.close(); w.print(); }
+    }
+    // Clean up after a delay (print dialog may still be open)
+    setTimeout(function() {
+      if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+    }, 3000);
+  };
+}
 
 </script>
 </body>
