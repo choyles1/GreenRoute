@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -22,275 +21,274 @@ button{cursor:pointer}
 
 /* ─── TOKENS ─────────────────────────────────── */
 :root{
-–g700:#145214;  /* dark green */
-–g600:#1A6B1A;  /* primary green */
-–g500:#2D8A2D;
-–g100:#D6EDD6;  /* green tint */
-–y600:#92400E;  /* amber text */
-–y100:#FEF3C7;  /* amber bg */
-–r600:#991B1B;
-–r100:#FEE2E2;
-–b600:#1E40AF;
-–b100:#DBEAFE;
-–p600:#4C1D95;
-–p100:#EDE9FE;
-–ink:#111111;
-–ink2:#374151;
-–ink3:#6B7280;
-–bg:#F0F2F0;
-–surface:#FFFFFF;
-–border:#C4CAC4;
-–border2:#E2E6E2;
-–radius:11px;
-–shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.08);
-–shadow2:0 4px 12px rgba(0,0,0,.12);
+  --g700:#145214;  /* dark green */
+  --g600:#1A6B1A;  /* primary green */
+  --g500:#2D8A2D;
+  --g100:#D6EDD6;  /* green tint */
+  --y600:#92400E;  /* amber text */
+  --y100:#FEF3C7;  /* amber bg */
+  --r600:#991B1B;
+  --r100:#FEE2E2;
+  --b600:#1E40AF;
+  --b100:#DBEAFE;
+  --p600:#4C1D95;
+  --p100:#EDE9FE;
+  --ink:#111111;
+  --ink2:#374151;
+  --ink3:#6B7280;
+  --bg:#F0F2F0;
+  --surface:#FFFFFF;
+  --border:#C4CAC4;
+  --border2:#E2E6E2;
+  --radius:11px;
+  --shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.08);
+  --shadow2:0 4px 12px rgba(0,0,0,.12);
 }
 
 /* ─── TOPBAR ─────────────────────────────────── */
 #topbar{
-background:var(–g600);
-padding:12px 14px 10px;
-display:flex;align-items:center;justify-content:space-between;
-position:sticky;top:0;z-index:50;
-box-shadow:0 2px 6px rgba(0,0,0,.25)
+  background:var(--g600);
+  padding:12px 14px 10px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:50;
+  box-shadow:0 2px 6px rgba(0,0,0,.25)
 }
-.topbar-logo{font-family:‘Playfair Display’,serif;color:#fff;font-size:20px;letter-spacing:-.3px}
+.topbar-logo{font-family:'Playfair Display',serif;color:#fff;font-size:20px;letter-spacing:-.3px}
 .topbar-actions{display:flex;gap:6px;align-items:center}
 .tb-btn{background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.25);
-color:#fff;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;
-transition:background .15s}
+        color:#fff;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;
+        transition:background .15s}
 .tb-btn:hover{background:rgba(255,255,255,.25)}
 .tb-icon{width:34px;height:34px;display:flex;align-items:center;justify-content:center;
-font-size:16px;padding:0}
+         font-size:16px;padding:0}
 
 /* ─── SYNC BANNER ────────────────────────────── */
 #banner{
-background:#FFFBEB;border-bottom:2px solid #FCD34D;
-padding:9px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;
-font-size:13px;color:#92400E;font-weight:600;flex-wrap:wrap;
-position:relative;z-index:49
+  background:#FFFBEB;border-bottom:2px solid #FCD34D;
+  padding:9px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  font-size:13px;color:#92400E;font-weight:600;flex-wrap:wrap;
+  position:relative;z-index:49
 }
 #banner.hide{display:none}
-#banner-btn{background:var(–g600);color:#fff;border:none;border-radius:7px;
-padding:7px 14px;font-size:12px;font-weight:700}
+#banner-btn{background:var(--g600);color:#fff;border:none;border-radius:7px;
+            padding:7px 14px;font-size:12px;font-weight:700}
 
 /* ─── CONTENT ────────────────────────────────── */
 #content{padding:14px 13px 78px;min-height:100vh}
 
 /* ─── BOTTOM NAV ─────────────────────────────── */
 #nav{
-position:fixed;bottom:0;left:0;right:0;z-index:50;
-background:#fff;border-top:2px solid var(–border);
-display:flex;
-padding-bottom:env(safe-area-inset-bottom,0);
-box-shadow:0 -1px 6px rgba(0,0,0,.08)
+  position:fixed;bottom:0;left:0;right:0;z-index:50;
+  background:#fff;border-top:2px solid var(--border);
+  display:flex;
+  padding-bottom:env(safe-area-inset-bottom,0);
+  box-shadow:0 -1px 6px rgba(0,0,0,.08)
 }
 .nb{flex:1;background:none;border:none;display:flex;flex-direction:column;
-align-items:center;gap:2px;padding:8px 2px 10px}
+    align-items:center;gap:2px;padding:8px 2px 10px}
 .nb-ico{font-size:18px;line-height:1}
-.nb-lbl{font-size:9px;font-weight:700;letter-spacing:.3px;color:var(–ink3);
-border-bottom:2px solid transparent;padding-bottom:1px}
-.nb.on .nb-lbl{color:var(–g600);border-bottom-color:var(–g600)}
+.nb-lbl{font-size:9px;font-weight:700;letter-spacing:.3px;color:var(--ink3);
+        border-bottom:2px solid transparent;padding-bottom:1px}
+.nb.on .nb-lbl{color:var(--g600);border-bottom-color:var(--g600)}
 
 /* ─── TAB PANELS ─────────────────────────────── */
 .tab{display:none}
 .tab.on{display:block}
-.page-title{font-family:‘Playfair Display’,serif;font-size:22px;font-weight:700;
-color:var(–ink);margin-bottom:14px}
+.page-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;
+            color:var(--ink);margin-bottom:14px}
 
 /* ─── TOOLBAR ────────────────────────────────── */
 .bar{display:flex;gap:8px;align-items:center;margin-bottom:11px;flex-wrap:wrap}
 .search{flex:1;min-width:120px;padding:9px 12px;border-radius:9px;
-border:2px solid var(–border);background:#fff;font-size:14px;
-color:var(–ink);outline:none}
-.search:focus{border-color:var(–g600)}
-.chip{padding:6px 13px;border-radius:8px;border:2px solid var(–border);
-font-size:12px;font-weight:700;background:#fff;color:var(–ink3);transition:all .15s}
-.chip.on{background:var(–g600);color:#fff;border-color:var(–g600)}
-.chip:hover:not(.on){border-color:var(–g600);color:var(–g600)}
+        border:2px solid var(--border);background:#fff;font-size:14px;
+        color:var(--ink);outline:none}
+.search:focus{border-color:var(--g600)}
+.chip{padding:6px 13px;border-radius:8px;border:2px solid var(--border);
+      font-size:12px;font-weight:700;background:#fff;color:var(--ink3);transition:all .15s}
+.chip.on{background:var(--g600);color:#fff;border-color:var(--g600)}
+.chip:hover:not(.on){border-color:var(--g600);color:var(--g600)}
 
 /* ─── CARDS ──────────────────────────────────── */
-.card{background:var(–surface);border:2px solid var(–border);border-radius:var(–radius);
-padding:12px 13px;margin-bottom:9px;cursor:pointer;
-box-shadow:var(–shadow);transition:border-color .15s,box-shadow .15s}
-.card:hover{border-color:var(–g500);box-shadow:var(–shadow2)}
+.card{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);
+      padding:12px 13px;margin-bottom:9px;cursor:pointer;
+      box-shadow:var(--shadow);transition:border-color .15s,box-shadow .15s}
+.card:hover{border-color:var(--g500);box-shadow:var(--shadow2)}
 .card:active{transform:scale(.99)}
 .crow{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-.ctitle{font-weight:700;font-size:14px;color:var(–ink);line-height:1.3}
-.csub{font-size:12px;color:var(–ink2);margin-top:3px;font-weight:500}
-.cmeta{font-size:11px;color:var(–ink3);margin-top:2px}
+.ctitle{font-weight:700;font-size:14px;color:var(--ink);line-height:1.3}
+.csub{font-size:12px;color:var(--ink2);margin-top:3px;font-weight:500}
+.cmeta{font-size:11px;color:var(--ink3);margin-top:2px}
 
 /* Client photo thumb */
 .cthumb{width:44px;height:44px;border-radius:9px;object-fit:cover;
-border:2px solid var(–border);flex-shrink:0}
-.cthumb-ph{width:44px;height:44px;border-radius:9px;background:var(–g100);
-border:2px solid var(–border);display:flex;align-items:center;
-justify-content:center;font-size:20px;flex-shrink:0}
+        border:2px solid var(--border);flex-shrink:0}
+.cthumb-ph{width:44px;height:44px;border-radius:9px;background:var(--g100);
+           border:2px solid var(--border);display:flex;align-items:center;
+           justify-content:center;font-size:20px;flex-shrink:0}
 
 /* ─── BADGES ─────────────────────────────────── */
 .badge{border-radius:6px;padding:3px 8px;font-size:10px;font-weight:800;
-letter-spacing:.4px;white-space:nowrap;flex-shrink:0;text-transform:uppercase}
-.b-green{background:var(–g100);color:var(–g700)}
-.b-amber{background:var(–y100);color:var(–y600)}
-.b-red  {background:var(–r100);color:var(–r600)}
-.b-blue {background:var(–b100);color:var(–b600)}
+       letter-spacing:.4px;white-space:nowrap;flex-shrink:0;text-transform:uppercase}
+.b-green{background:var(--g100);color:var(--g700)}
+.b-amber{background:var(--y100);color:var(--y600)}
+.b-red  {background:var(--r100);color:var(--r600)}
+.b-blue {background:var(--b100);color:var(--b600)}
 .b-gray {background:#F0F2F0;color:#4B5563}
-.b-purp {background:var(–p100);color:var(–p600)}
-.rtag{display:inline-flex;align-items:center;gap:3px;background:var(–p100);
-color:var(–p600);border-radius:6px;padding:2px 7px;
-font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.3px}
+.b-purp {background:var(--p100);color:var(--p600)}
+.rtag{display:inline-flex;align-items:center;gap:3px;background:var(--p100);
+      color:var(--p600);border-radius:6px;padding:2px 7px;
+      font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.3px}
 
 /* ─── BUTTONS ────────────────────────────────── */
 .btn{padding:9px 17px;border-radius:8px;border:none;font-weight:700;font-size:13px;
-transition:opacity .15s,transform .1s}
+     transition:opacity .15s,transform .1s}
 .btn:active{transform:scale(.97)}
-.btn-g{background:var(–g600);color:#fff}
-.btn-g:hover{background:var(–g700)}
-.btn-c{background:#F0F2F0;color:var(–ink);border:2px solid var(–border)}
-.btn-r{background:var(–r100);color:var(–r600);border:2px solid #FECACA}
-.btn-b{background:var(–b100);color:var(–b600);border:2px solid #BFDBFE}
+.btn-g{background:var(--g600);color:#fff}
+.btn-g:hover{background:var(--g700)}
+.btn-c{background:#F0F2F0;color:var(--ink);border:2px solid var(--border)}
+.btn-r{background:var(--r100);color:var(--r600);border:2px solid #FECACA}
+.btn-b{background:var(--b100);color:var(--b600);border:2px solid #BFDBFE}
 .btn-sm{padding:7px 13px;font-size:12px}
 
 /* ─── STAT ROW ───────────────────────────────── */
 .stats{display:flex;gap:8px;margin-bottom:13px;overflow-x:auto;padding-bottom:2px}
-.stat{min-width:82px;flex:1;background:var(–surface);border:2px solid var(–border);
-border-radius:var(–radius);padding:11px 9px;text-align:center;box-shadow:var(–shadow)}
+.stat{min-width:82px;flex:1;background:var(--surface);border:2px solid var(--border);
+      border-radius:var(--radius);padding:11px 9px;text-align:center;box-shadow:var(--shadow)}
 .stat-n{font-size:18px;font-weight:800;line-height:1}
-.stat-l{font-size:10px;color:var(–ink3);margin-top:3px;font-weight:600;
-text-transform:uppercase;letter-spacing:.4px}
+.stat-l{font-size:10px;color:var(--ink3);margin-top:3px;font-weight:600;
+        text-transform:uppercase;letter-spacing:.4px}
 
 /* ─── BOTTOM SHEET ───────────────────────────── */
 #sheet{display:none;position:fixed;bottom:0;left:0;right:0;
-background:#fff;border-radius:20px 20px 0 0;
-padding:16px 16px 52px;max-height:82vh;overflow-y:auto;
-z-index:200;box-shadow:0 -4px 30px rgba(0,0,0,.15);
-animation:up .22s ease}
+       background:#fff;border-radius:20px 20px 0 0;
+       padding:16px 16px 52px;max-height:82vh;overflow-y:auto;
+       z-index:200;box-shadow:0 -4px 30px rgba(0,0,0,.15);
+       animation:up .22s ease}
 #sheet.on{display:block}
 #sheet-bg{display:none;position:fixed;inset:0;z-index:199}
 #sheet-bg.on{display:block}
 @keyframes up{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
-.sh{width:40px;height:4px;background:var(–border2);border-radius:99px;margin:0 auto 14px}
-.stitle{font-family:‘Playfair Display’,serif;font-size:19px;font-weight:700;
-color:var(–ink);margin-bottom:13px}
+.sh{width:40px;height:4px;background:var(--border2);border-radius:99px;margin:0 auto 14px}
+.stitle{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;
+        color:var(--ink);margin-bottom:13px}
 .frow{margin-bottom:11px}
-.flbl{font-size:10px;font-weight:800;color:var(–ink3);
-text-transform:uppercase;letter-spacing:.7px;margin-bottom:3px}
-.fval{font-size:14px;color:var(–ink);font-weight:500;line-height:1.4}
+.flbl{font-size:10px;font-weight:800;color:var(--ink3);
+      text-transform:uppercase;letter-spacing:.7px;margin-bottom:3px}
+.fval{font-size:14px;color:var(--ink);font-weight:500;line-height:1.4}
 .sacts{display:flex;gap:7px;margin-top:15px;flex-wrap:wrap}
 
 /* ─── PHOTO GRID ─────────────────────────────── */
 .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:6px}
 .pcell{aspect-ratio:1;border-radius:9px;object-fit:cover;width:100%;
-border:2px solid var(–border);cursor:pointer;transition:transform .2s}
+       border:2px solid var(--border);cursor:pointer;transition:transform .2s}
 .pcell:hover{transform:scale(1.04)}
-.padd{aspect-ratio:1;border-radius:9px;border:2px dashed var(–border);
-display:flex;align-items:center;justify-content:center;
-font-size:26px;color:var(–ink3);background:var(–bg);cursor:pointer}
-.padd:hover{border-color:var(–g600);color:var(–g600)}
+.padd{aspect-ratio:1;border-radius:9px;border:2px dashed var(--border);
+      display:flex;align-items:center;justify-content:center;
+      font-size:26px;color:var(--ink3);background:var(--bg);cursor:pointer}
+.padd:hover{border-color:var(--g600);color:var(--g600)}
 
 /* ─── LIGHTBOX ───────────────────────────────── */
 #lbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);
-z-index:500;align-items:center;justify-content:center;
-flex-direction:column;gap:12px}
+      z-index:500;align-items:center;justify-content:center;
+      flex-direction:column;gap:12px}
 #lbox.on{display:flex}
 #lbox img{max-width:92vw;max-height:74vh;border-radius:10px;object-fit:contain}
 #lbox-x{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.12);
-border:none;color:#fff;border-radius:8px;width:38px;height:38px;
-font-size:18px;display:flex;align-items:center;justify-content:center}
-#lbox-del{background:var(–r100);color:var(–r600);border:2px solid #FECACA;
-border-radius:8px;padding:8px 18px;font-weight:700;font-size:13px}
+         border:none;color:#fff;border-radius:8px;width:38px;height:38px;
+         font-size:18px;display:flex;align-items:center;justify-content:center}
+#lbox-del{background:var(--r100);color:var(--r600);border:2px solid #FECACA;
+          border-radius:8px;padding:8px 18px;font-weight:700;font-size:13px}
 
 /* ─── MODAL ──────────────────────────────────── */
 #modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);
-z-index:300;align-items:flex-end;justify-content:center}
+       z-index:300;align-items:flex-end;justify-content:center}
 #modal.on{display:flex}
 .modal-box{background:#fff;border-radius:20px 20px 0 0;padding:18px 18px 38px;
-width:100%;max-width:560px;max-height:91vh;overflow-y:auto;
-animation:up .26s cubic-bezier(.22,1,.36,1)}
-.mh{width:38px;height:4px;background:var(–border2);border-radius:99px;margin:0 auto 14px}
-.mtitle{font-family:‘Playfair Display’,serif;font-size:19px;font-weight:700;
-color:var(–ink);margin-bottom:14px}
-.mlbl{font-size:11px;font-weight:800;color:var(–ink3);text-transform:uppercase;
-letter-spacing:.7px;display:block;margin-bottom:4px;margin-top:13px}
+           width:100%;max-width:560px;max-height:91vh;overflow-y:auto;
+           animation:up .26s cubic-bezier(.22,1,.36,1)}
+.mh{width:38px;height:4px;background:var(--border2);border-radius:99px;margin:0 auto 14px}
+.mtitle{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;
+        color:var(--ink);margin-bottom:14px}
+.mlbl{font-size:11px;font-weight:800;color:var(--ink3);text-transform:uppercase;
+      letter-spacing:.7px;display:block;margin-bottom:4px;margin-top:13px}
 .mlbl:first-of-type{margin-top:0}
-.minput{width:100%;padding:10px 12px;border-radius:8px;border:2px solid var(–border);
-font-size:14px;color:var(–ink);outline:none;background:#fff;transition:border-color .2s}
-.minput:focus{border-color:var(–g600)}
+.minput{width:100%;padding:10px 12px;border-radius:8px;border:2px solid var(--border);
+        font-size:14px;color:var(--ink);outline:none;background:#fff;transition:border-color .2s}
+.minput:focus{border-color:var(--g600)}
 textarea.minput{resize:vertical;min-height:68px}
 .mfooter{display:flex;gap:9px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap}
 .form2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
 /* ─── CREW DIVIDER ───────────────────────────── */
-.crew-hd{font-size:11px;font-weight:800;color:var(–g600);
-text-transform:uppercase;letter-spacing:1px;margin:14px 0 7px 1px;
-display:flex;align-items:center;gap:8px}
-.crew-hd::after{content:’’;flex:1;height:1.5px;background:var(–border2)}
+.crew-hd{font-size:11px;font-weight:800;color:var(--g600);
+         text-transform:uppercase;letter-spacing:1px;margin:14px 0 7px 1px;
+         display:flex;align-items:center;gap:8px}
+.crew-hd::after{content:'';flex:1;height:1.5px;background:var(--border2)}
 
 /* ─── ESTIMATE LINES ─────────────────────────── */
 .elines{width:100%;border-collapse:collapse;font-size:13px;margin-top:7px}
-.elines th{text-align:left;font-size:10px;font-weight:800;color:var(–ink3);
-text-transform:uppercase;letter-spacing:.5px;padding-bottom:6px;
-border-bottom:2px solid var(–border)}
-.elines td{padding:7px 5px 7px 0;border-bottom:1px solid var(–border2);color:var(–ink)}
-.elines tfoot td{font-weight:800;border-top:2px solid var(–border);border-bottom:none;padding-top:9px}
-.ldel{background:none;border:none;color:var(–r600);font-size:15px;padding:0 3px;cursor:pointer}
-.einput{width:100%;padding:4px 6px;border:1.5px solid var(–border);
-border-radius:6px;font-size:12px;font-family:‘DM Sans’,sans-serif;color:var(–ink)}
+.elines th{text-align:left;font-size:10px;font-weight:800;color:var(--ink3);
+           text-transform:uppercase;letter-spacing:.5px;padding-bottom:6px;
+           border-bottom:2px solid var(--border)}
+.elines td{padding:7px 5px 7px 0;border-bottom:1px solid var(--border2);color:var(--ink)}
+.elines tfoot td{font-weight:800;border-top:2px solid var(--border);border-bottom:none;padding-top:9px}
+.ldel{background:none;border:none;color:var(--r600);font-size:15px;padding:0 3px;cursor:pointer}
+.einput{width:100%;padding:4px 6px;border:1.5px solid var(--border);
+        border-radius:6px;font-size:12px;font-family:'DM Sans',sans-serif;color:var(--ink)}
 
 /* ─── REPORTS ────────────────────────────────── */
-.rsection{background:var(–surface);border:2px solid var(–border);
-border-radius:var(–radius);padding:14px;margin-bottom:12px;box-shadow:var(–shadow)}
-.rsection h3{font-size:14px;font-weight:800;color:var(–ink);margin-bottom:11px}
+.rsection{background:var(--surface);border:2px solid var(--border);
+          border-radius:var(--radius);padding:14px;margin-bottom:12px;box-shadow:var(--shadow)}
+.rsection h3{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:11px}
 .rtable{width:100%;border-collapse:collapse;font-size:13px}
-.rtable th{text-align:left;font-size:10px;font-weight:800;color:var(–ink3);
-text-transform:uppercase;letter-spacing:.5px;padding-bottom:6px;
-border-bottom:2px solid var(–border)}
-.rtable td{padding:8px 6px 8px 0;border-bottom:1px solid var(–border2)}
+.rtable th{text-align:left;font-size:10px;font-weight:800;color:var(--ink3);
+           text-transform:uppercase;letter-spacing:.5px;padding-bottom:6px;
+           border-bottom:2px solid var(--border)}
+.rtable td{padding:8px 6px 8px 0;border-bottom:1px solid var(--border2)}
 .rtable tr:last-child td{border-bottom:none}
-.rbar{height:8px;border-radius:99px;background:var(–g600);display:block;min-width:3px}
+.rbar{height:8px;border-radius:99px;background:var(--g600);display:block;min-width:3px}
 
 /* ─── SYNC TAB ───────────────────────────────── */
-.sync-step{background:var(–surface);border:2px solid var(–border);
-border-radius:var(–radius);padding:14px;margin-bottom:10px;box-shadow:var(–shadow)}
-.sync-step-label{font-size:11px;font-weight:800;color:var(–g600);
-text-transform:uppercase;letter-spacing:.8px;margin-bottom:7px}
-.sync-step p{font-size:13px;color:var(–ink2);line-height:1.7}
+.sync-step{background:var(--surface);border:2px solid var(--border);
+           border-radius:var(--radius);padding:14px;margin-bottom:10px;box-shadow:var(--shadow)}
+.sync-step-label{font-size:11px;font-weight:800;color:var(--g600);
+                 text-transform:uppercase;letter-spacing:.8px;margin-bottom:7px}
+.sync-step p{font-size:13px;color:var(--ink2);line-height:1.7}
 .sync-input-wrap{margin-top:9px}
-.sync-input-wrap label{font-size:11px;font-weight:800;color:var(–ink3);
-text-transform:uppercase;letter-spacing:.7px;display:block;margin-bottom:4px}
+.sync-input-wrap label{font-size:11px;font-weight:800;color:var(--ink3);
+                       text-transform:uppercase;letter-spacing:.7px;display:block;margin-bottom:4px}
 .sync-input-wrap input{width:100%;padding:11px 12px;border-radius:8px;
-border:2px solid var(–border);font-size:14px;
-color:var(–ink);outline:none;background:#fff;
-font-family:‘DM Sans’,sans-serif}
-.sync-input-wrap input:focus{border-color:var(–g600)}
-#sync-status-card{border-radius:var(–radius);padding:13px;margin-bottom:12px;
-display:flex;align-items:center;gap:11px;border:2px solid var(–border);
-background:var(–surface)}
+                       border:2px solid var(--border);font-size:14px;
+                       color:var(--ink);outline:none;background:#fff;
+                       font-family:'DM Sans',sans-serif}
+.sync-input-wrap input:focus{border-color:var(--g600)}
+#sync-status-card{border-radius:var(--radius);padding:13px;margin-bottom:12px;
+                  display:flex;align-items:center;gap:11px;border:2px solid var(--border);
+                  background:var(--surface)}
 
 /* ─── EMPTY STATE ────────────────────────────── */
-.empty{text-align:center;padding:44px 20px;color:var(–ink3)}
+.empty{text-align:center;padding:44px 20px;color:var(--ink3)}
 .empty-ico{font-size:42px;margin-bottom:10px}
 .empty p{font-size:14px;font-weight:500}
 .empty .btn{margin-top:14px;display:inline-block}
 
 /* ─── TOAST ──────────────────────────────────── */
 #toast{position:fixed;bottom:76px;left:50%;transform:translateX(-50%) translateY(12px);
-background:var(–ink);color:#fff;padding:10px 20px;border-radius:9px;
-font-size:13px;font-weight:700;opacity:0;pointer-events:none;
-transition:all .25s;z-index:600;white-space:nowrap;max-width:90vw;
-box-shadow:var(–shadow2)}
+       background:var(--ink);color:#fff;padding:10px 20px;border-radius:9px;
+       font-size:13px;font-weight:700;opacity:0;pointer-events:none;
+       transition:all .25s;z-index:600;white-space:nowrap;max-width:90vw;
+       box-shadow:var(--shadow2)}
 #toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /* ─── PRINT ──────────────────────────────────── */
 @media print{
-#topbar,#nav,#banner,#sheet,#sheet-bg,#modal,#lbox,#toast{display:none!important}
-body{background:#fff}
-#content{padding:0}
-.tab{display:block!important}
-.tab:not(.on){display:none!important}
+  #topbar,#nav,#banner,#sheet,#sheet-bg,#modal,#lbox,#toast{display:none!important}
+  body{background:#fff}
+  #content{padding:0}
+  .tab{display:block!important}
+  .tab:not(.on){display:none!important}
 }
 </style>
-
 <link rel="apple-touch-icon" sizes="57x57" href="data:image/png;base64,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">
 <link rel="apple-touch-icon" sizes="60x60" href="data:image/png;base64,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">
 <link rel="apple-touch-icon" sizes="72x72" href="data:image/png;base64,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">
@@ -308,7 +306,6 @@ body{background:#fff}
 <body>
 
 <!-- TOP BAR -->
-
 <div id="topbar">
   <div class="topbar-logo">🌿 GreenRoute</div>
   <div class="topbar-actions">
@@ -318,18 +315,15 @@ body{background:#fff}
 </div>
 
 <!-- SYNC BANNER -->
-
 <div id="banner">
   <span>⚠️ Cloud sync not configured</span>
   <button id="banner-btn" onclick="goSync()">Set Up →</button>
 </div>
 
 <!-- CONTENT -->
-
 <div id="content">
 
 <!-- CLIENTS TAB -->
-
 <div class="tab on" id="tab-clients">
   <div class="page-title">👤 Clients</div>
   <div class="bar">
@@ -340,7 +334,6 @@ body{background:#fff}
 </div>
 
 <!-- SCHEDULE TAB -->
-
 <div class="tab" id="tab-schedule">
   <div class="page-title">📅 Schedule</div>
   <div class="bar">
@@ -354,7 +347,6 @@ body{background:#fff}
 </div>
 
 <!-- WORKERS TAB -->
-
 <div class="tab" id="tab-workers">
   <div class="page-title">👷 Workers</div>
   <div class="bar">
@@ -364,7 +356,6 @@ body{background:#fff}
 </div>
 
 <!-- INVOICES TAB -->
-
 <div class="tab" id="tab-invoices">
   <div class="page-title">💵 Invoices</div>
   <div class="stats" id="inv-stats"></div>
@@ -379,7 +370,6 @@ body{background:#fff}
 </div>
 
 <!-- ESTIMATES TAB -->
-
 <div class="tab" id="tab-estimates">
   <div class="page-title">📋 Estimates</div>
   <div class="bar">
@@ -393,7 +383,6 @@ body{background:#fff}
 </div>
 
 <!-- REPORTS TAB -->
-
 <div class="tab" id="tab-reports">
   <div class="page-title">📊 Reports</div>
   <div class="bar" style="margin-bottom:13px">
@@ -406,7 +395,6 @@ body{background:#fff}
 </div>
 
 <!-- SYNC TAB -->
-
 <div class="tab" id="tab-sync">
   <div class="page-title">☁ Cloud Sync</div>
 
@@ -462,8 +450,8 @@ body{background:#fff}
   <div id="cs-msg" style="font-size:13px;font-weight:700;min-height:18px;
        text-align:center;padding:9px;border-radius:8px;margin-bottom:10px"></div>
 
-<button class="btn btn-g" style="width:100%;padding:14px;font-size:15px;font-weight:800"
-onclick="saveSync()">✓ Save & Test Connection</button>
+  <button class="btn btn-g" style="width:100%;padding:14px;font-size:15px;font-weight:800"
+          onclick="saveSync()">✓ Save &amp; Test Connection</button>
 
   <p style="font-size:12px;color:var(--ink3);text-align:center;margin-top:10px;line-height:1.6">
     Free tier: 10,000 req/month · 1MB per bin. Your data stays in your private bin.
@@ -473,7 +461,6 @@ onclick="saveSync()">✓ Save & Test Connection</button>
 </div><!-- /content -->
 
 <!-- BOTTOM NAV -->
-
 <div id="nav">
   <button class="nb on" id="nb-clients"   onclick="go('clients')">  <span class="nb-ico">👤</span><span class="nb-lbl">Clients</span>  </button>
   <button class="nb"    id="nb-schedule"  onclick="go('schedule')"> <span class="nb-ico">📅</span><span class="nb-lbl">Schedule</span> </button>
@@ -485,12 +472,10 @@ onclick="saveSync()">✓ Save & Test Connection</button>
 </div>
 
 <!-- BOTTOM SHEET -->
-
 <div id="sheet"><div class="sh"></div><div id="sheet-body"></div></div>
 <div id="sheet-bg" onclick="closeSheet()"></div>
 
 <!-- MODAL (add/edit forms) -->
-
 <div id="modal">
   <div class="modal-box">
     <div class="mh"></div>
@@ -504,7 +489,6 @@ onclick="saveSync()">✓ Save & Test Connection</button>
 </div>
 
 <!-- LIGHTBOX -->
-
 <div id="lbox">
   <button id="lbox-x" onclick="closeLbox()">✕</button>
   <img id="lbox-img" src="" alt="">
@@ -512,7 +496,6 @@ onclick="saveSync()">✓ Save & Test Connection</button>
 </div>
 
 <!-- TOAST -->
-
 <div id="toast"></div>
 
 <script>
@@ -986,30 +969,25 @@ function buildEstBody(e={}) {
     </select>
     <label class="mlbl">Notes</label>
     <textarea id="e-notes" class="minput">${esc(e.notes||'')}</textarea>
-
-```
-<label class="mlbl">Line Items</label>
-<table class="elines" style="width:100%">
-  <thead><tr><th>Description</th><th>Qty</th><th>Unit</th><th>$/Unit</th><th></th></tr></thead>
-  <tbody id="est-lines-tbody"></tbody>
-</table>
-<button type="button" class="btn btn-b btn-sm" style="margin-top:8px;width:100%"
-        onclick="addEstLine()">+ Add Line Item</button>`;
-```
-
+    <label class="mlbl">Line Items</label>
+    <table class="elines" style="width:100%">
+      <thead><tr><th>Description</th><th>Qty</th><th>Unit</th><th>$/Unit</th><th></th></tr></thead>
+      <tbody id="est-lines-tbody"></tbody>
+    </table>
+    <button type="button" class="btn btn-b btn-sm" style="margin-top:8px;width:100%"
+            onclick="addEstLine()">+ Add Line Item</button>`;
 }
 function renderEstLines() {
-document.getElementById(‘est-lines-tbody’).innerHTML = estLines.map((l,i) => `<tr>
-<td><input class="einput" style="width:100%" value="${esc(l.desc)}"
-onchange="estLines[${i}].desc=this.value"></td>
-<td><input class="einput" type="number" style="width:52px" value="${l.qty}"
-onchange="estLines[${i}].qty=+this.value"></td>
-<td><input class="einput" style="width:58px" value="${esc(l.unit)}"
-onchange="estLines[${i}].unit=this.value"></td>
-<td><input class="einput" type="number" style="width:68px" value="${l.price}"
-onchange="estLines[${i}].price=+this.value"></td>
-<td><button class="ldel" onclick="removeEstLine(${i})">✕</button></td>
-
+  document.getElementById('est-lines-tbody').innerHTML = estLines.map((l,i) => `<tr>
+    <td><input class="einput" style="width:100%" value="${esc(l.desc)}"
+         onchange="estLines[${i}].desc=this.value"></td>
+    <td><input class="einput" type="number" style="width:52px" value="${l.qty}"
+         onchange="estLines[${i}].qty=+this.value"></td>
+    <td><input class="einput" style="width:58px" value="${esc(l.unit)}"
+         onchange="estLines[${i}].unit=this.value"></td>
+    <td><input class="einput" type="number" style="width:68px" value="${l.price}"
+         onchange="estLines[${i}].price=+this.value"></td>
+    <td><button class="ldel" onclick="removeEstLine(${i})">✕</button></td>
   </tr>`).join('');
 }
 function addEstLine() {
@@ -1021,40 +999,39 @@ function removeEstLine(i) {
 }
 
 /* ═══════════════════════════════════════════════
-REPORTS
-═══════════════════════════════════════════════ */
+   REPORTS
+   ═══════════════════════════════════════════════ */
 function setReport(t) {
-reportType=t;
-document.querySelectorAll(’[id^=“rt-”]’).forEach(b => b.classList.remove(‘on’));
-document.getElementById(‘rt-’+t).classList.add(‘on’);
-renderReport();
+  reportType=t;
+  document.querySelectorAll('[id^="rt-"]').forEach(b => b.classList.remove('on'));
+  document.getElementById('rt-'+t).classList.add('on');
+  renderReport();
 }
 function renderReport() {
-const el = document.getElementById(‘rpt-body’);
-if (reportType===‘billing’) el.innerHTML = rptBilling();
-else if (reportType===‘clients’) el.innerHTML = rptClients();
-else el.innerHTML = rptCrew();
+  const el = document.getElementById('rpt-body');
+  if (reportType==='billing') el.innerHTML = rptBilling();
+  else if (reportType==='clients') el.innerHTML = rptClients();
+  else el.innerHTML = rptCrew();
 }
 function rptBilling() {
-const total = DB.invoices.reduce((s,i)=>s+Number(i.amount),0);
-const paid  = DB.invoices.filter(i=>i.status===‘Paid’).reduce((s,i)=>s+Number(i.amount),0);
-const unpaid= DB.invoices.filter(i=>i.status===‘Unpaid’).reduce((s,i)=>s+Number(i.amount),0);
-const ov    = DB.invoices.filter(i=>i.status===‘Overdue’).reduce((s,i)=>s+Number(i.amount),0);
-const estT  = DB.estimates.reduce((s,e)=>s+e.lines.reduce((ss,l)=>ss+l.qty*l.price,0),0);
-const estA  = DB.estimates.filter(e=>e.status===‘Accepted’).reduce((s,e)=>s+e.lines.reduce((ss,l)=>ss+l.qty*l.price,0),0);
-const pct   = total ? Math.round(paid/total*100) : 0;
-return `<div class="rsection"><h3>💰 Billing Summary</h3>
-<div class="stats">
-<div class="stat"><div class=“stat-n”style=“color:var(–ink)”>$${total.toLocaleString()}</div><div class="stat-l">Invoiced</div></div>
-<div class="stat"><div class=“stat-n”style=“color:var(–g600)”>$${paid.toLocaleString()}</div><div class="stat-l">Paid</div></div>
-<div class="stat"><div class=“stat-n”style=“color:var(–y600)”>$${unpaid.toLocaleString()}</div><div class="stat-l">Unpaid</div></div>
-<div class="stat"><div class=“stat-n”style=“color:var(–r600)”>$${ov.toLocaleString()}</div><div class="stat-l">Overdue</div></div>
-</div>
-<div style="background:var(--bg);border-radius:99px;height:10px;overflow:hidden;margin-bottom:6px">
-<div style="background:var(--g600);height:100%;width:${pct}%;border-radius:99px;transition:width .5s"></div>
-</div>
-<div style="font-size:12px;color:var(--ink3);font-weight:600">${pct}% collection rate · ${DB.invoices.length} invoices</div>
-
+  const total = DB.invoices.reduce((s,i)=>s+Number(i.amount),0);
+  const paid  = DB.invoices.filter(i=>i.status==='Paid').reduce((s,i)=>s+Number(i.amount),0);
+  const unpaid= DB.invoices.filter(i=>i.status==='Unpaid').reduce((s,i)=>s+Number(i.amount),0);
+  const ov    = DB.invoices.filter(i=>i.status==='Overdue').reduce((s,i)=>s+Number(i.amount),0);
+  const estT  = DB.estimates.reduce((s,e)=>s+e.lines.reduce((ss,l)=>ss+l.qty*l.price,0),0);
+  const estA  = DB.estimates.filter(e=>e.status==='Accepted').reduce((s,e)=>s+e.lines.reduce((ss,l)=>ss+l.qty*l.price,0),0);
+  const pct   = total ? Math.round(paid/total*100) : 0;
+  return `<div class="rsection"><h3>💰 Billing Summary</h3>
+    <div class="stats">
+      <div class="stat"><div class="stat-n"style="color:var(--ink)">$${total.toLocaleString()}</div><div class="stat-l">Invoiced</div></div>
+      <div class="stat"><div class="stat-n"style="color:var(--g600)">$${paid.toLocaleString()}</div><div class="stat-l">Paid</div></div>
+      <div class="stat"><div class="stat-n"style="color:var(--y600)">$${unpaid.toLocaleString()}</div><div class="stat-l">Unpaid</div></div>
+      <div class="stat"><div class="stat-n"style="color:var(--r600)">$${ov.toLocaleString()}</div><div class="stat-l">Overdue</div></div>
+    </div>
+    <div style="background:var(--bg);border-radius:99px;height:10px;overflow:hidden;margin-bottom:6px">
+      <div style="background:var(--g600);height:100%;width:${pct}%;border-radius:99px;transition:width .5s"></div>
+    </div>
+    <div style="font-size:12px;color:var(--ink3);font-weight:600">${pct}% collection rate · ${DB.invoices.length} invoices</div>
   </div>
   <div class="rsection"><h3>📋 Estimates Pipeline</h3>
     <div class="stats">
@@ -1103,338 +1080,419 @@ function rptCrew() {
 }
 
 /* ═══════════════════════════════════════════════
-PRINT FUNCTIONS
-(style tags split to prevent HTML parser confusion)
-═══════════════════════════════════════════════ */
+   PRINT FUNCTIONS
+   (style tags split to prevent HTML parser confusion)
+   ═══════════════════════════════════════════════ */
 const PRINT_CSS_BASE = [
-‘body{font-family:Georgia,serif;padding:40px;max-width:700px;margin:0 auto;color:#111}’,
-‘h1{font-size:24px;color:#1A6B1A;margin-bottom:4px}’,
-‘.sub{color:#888;font-size:13px;margin-bottom:24px}’,
-‘table{width:100%;border-collapse:collapse;margin-top:16px}’,
-‘th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.6px;’,
-’   color:#888;padding-bottom:7px;border-bottom:2px solid #ddd}’,
-‘td{padding:9px 4px;border-bottom:1px solid #eee;font-size:14px}’,
-‘tfoot td{font-weight:800;border-top:2px solid #ddd;border-bottom:none;font-size:15px;color:#1A6B1A}’,
-‘.bk{display:inline-block;padding:3px 10px;border-radius:5px;font-size:11px;font-weight:800;text-transform:uppercase}’
-].join(’’);
+  'body{font-family:Georgia,serif;padding:40px;max-width:700px;margin:0 auto;color:#111}',
+  'h1{font-size:24px;color:#1A6B1A;margin-bottom:4px}',
+  '.sub{color:#888;font-size:13px;margin-bottom:24px}',
+  'table{width:100%;border-collapse:collapse;margin-top:16px}',
+  'th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.6px;',
+  '   color:#888;padding-bottom:7px;border-bottom:2px solid #ddd}',
+  'td{padding:9px 4px;border-bottom:1px solid #eee;font-size:14px}',
+  'tfoot td{font-weight:800;border-top:2px solid #ddd;border-bottom:none;font-size:15px;color:#1A6B1A}',
+  '.bk{display:inline-block;padding:3px 10px;border-radius:5px;font-size:11px;font-weight:800;text-transform:uppercase}'
+].join('');
 
 function printInv(id) {
-const inv = DB.invoices.find(x=>x.id===id); if (!inv) return;
-const co = CFG.company||‘GreenRoute Landscaping’;
-const w = window.open(’’,’_blank’);
-const bg = inv.status===‘Paid’?’#D6EDD6’:’#FEF3C7’;
-const fc = inv.status===‘Paid’?’#145214’:’#92400E’;
-const styleOpen = ‘<’ + ‘style>’;
-const styleClose = ‘</’ + ‘style>’;
-w.document.write(’<!DOCTYPE html><html><head><title>’+inv.id+’</title>’
-+styleOpen+PRINT_CSS_BASE+styleClose
-+’</head><body>’
-+’<h1>🌿 ‘+co+’</h1>’
-+’<p class="sub">’+esc(CFG.phone||’’)+’ · ‘+esc(CFG.email||’’)+’</p>’
-+’<h2 style="font-size:17px;margin-bottom:6px">’+inv.id
-+’ <span class="bk" style="background:'+bg+';color:'+fc+'">’+inv.status+’</span></h2>’
-+’<table><thead><tr><th>Client</th><th>Service Date</th><th>Due Date</th><th>Amount</th></tr></thead>’
-+’<tbody><tr><td>’+esc(inv.client)+’</td><td>’+esc(inv.date)+’</td><td>’+esc(inv.due)+’</td>’
-+’<td style="font-weight:800;font-size:17px;color:#1A6B1A">$’+Number(inv.amount).toLocaleString()+’</td></tr></tbody>’
-+’</table>’
-+(inv.notes?’<p style="margin-top:18px;font-size:13px;color:#666">Notes: ‘+esc(inv.notes)+’</p>’:’’)
-+’<p style="margin-top:44px;font-size:12px;color:#aaa">Thank you — ‘+co+’</p>’
-+’<script>window.print()</script></body></html>’);
+  const inv = DB.invoices.find(x=>x.id===id); if (!inv) return;
+  const co = CFG.company||'GreenRoute Landscaping';
+  const w = window.open('','_blank');
+  const bg = inv.status==='Paid'?'#D6EDD6':'#FEF3C7';
+  const fc = inv.status==='Paid'?'#145214':'#92400E';
+  const styleOpen = '<' + 'style>';
+  const styleClose = '</' + 'style>';
+  w.document.write('<!DOCTYPE html><html><head><title>'+inv.id+'</title>'
+    +styleOpen+PRINT_CSS_BASE+styleClose
+    +'</head><body>'
+    +'<h1>🌿 '+co+'</h1>'
+    +'<p class="sub">'+esc(CFG.phone||'')+' · '+esc(CFG.email||'')+'</p>'
+    +'<h2 style="font-size:17px;margin-bottom:6px">'+inv.id
+    +' <span class="bk" style="background:'+bg+';color:'+fc+'">'+inv.status+'</span></h2>'
+    +'<table><thead><tr><th>Client</th><th>Service Date</th><th>Due Date</th><th>Amount</th></tr></thead>'
+    +'<tbody><tr><td>'+esc(inv.client)+'</td><td>'+esc(inv.date)+'</td><td>'+esc(inv.due)+'</td>'
+    +'<td style="font-weight:800;font-size:17px;color:#1A6B1A">$'+Number(inv.amount).toLocaleString()+'</td></tr></tbody>'
+    +'</table>'
+    +(inv.notes?'<p style="margin-top:18px;font-size:13px;color:#666">Notes: '+esc(inv.notes)+'</p>':'')
+    +'<p style="margin-top:44px;font-size:12px;color:#aaa">Thank you — '+co+'</p>'
+    +'<script>window.print()<\/script></body></html>');
 }
 
 function printEst(id) {
-const e = DB.estimates.find(x=>x.id===id); if (!e) return;
-const total = e.lines.reduce((s,l)=>s+l.qty*l.price,0);
-const co = CFG.company||‘GreenRoute Landscaping’;
-const w = window.open(’’,’_blank’);
-const styleOpen = ‘<’ + ‘style>’;
-const styleClose = ‘</’ + ‘style>’;
-w.document.write(’<!DOCTYPE html><html><head><title>’+e.id+’</title>’
-+styleOpen+PRINT_CSS_BASE+styleClose
-+’</head><body>’
-+’<h1>🌿 ‘+co+’</h1>’
-+’<p class="sub">’+esc(CFG.phone||’’)+’ · ‘+esc(CFG.email||’’)+’</p>’
-+’<h2 style="font-size:17px;margin-bottom:4px">Estimate ‘+e.id
-+’ <span class="bk" style="background:#D6EDD6;color:#145214">’+e.status+’</span></h2>’
-+’<p style="font-size:13px;color:#666;margin-bottom:14px">Client: <strong>’+esc(e.client)+’</strong> · Issued: ‘+esc(e.date)+’ · Valid until: ‘+esc(e.validUntil)+’</p>’
-+(e.notes?’<p style="font-size:13px;color:#888;font-style:italic;margin-bottom:12px">’+esc(e.notes)+’</p>’:’’)
-+’<table><thead><tr><th>Description</th><th>Qty</th><th>Unit</th><th>Unit Price</th><th>Total</th></tr></thead>’
-+’<tbody>’+e.lines.map(l=>’<tr><td>’+esc(l.desc)+’</td><td>’+l.qty+’</td><td>’+esc(l.unit)+’</td><td>$’+l.price.toLocaleString()+’</td><td>$’+(l.qty*l.price).toLocaleString()+’</td></tr>’).join(’’)+’</tbody>’
-+’<tfoot><tr><td colspan="4" style="text-align:right;padding-right:10px">Grand Total</td><td>$’+total.toLocaleString()+’</td></tr></tfoot>’
-+’</table>’
-+’<p style="margin-top:44px;font-size:12px;color:#aaa">Valid until ‘+esc(e.validUntil)+’ — ‘+co+’</p>’
-+’<script>window.print()</script></body></html>’);
+  const e = DB.estimates.find(x=>x.id===id); if (!e) return;
+  const total = e.lines.reduce((s,l)=>s+l.qty*l.price,0);
+  const co = CFG.company||'GreenRoute Landscaping';
+  const w = window.open('','_blank');
+  const styleOpen = '<' + 'style>';
+  const styleClose = '</' + 'style>';
+  w.document.write('<!DOCTYPE html><html><head><title>'+e.id+'</title>'
+    +styleOpen+PRINT_CSS_BASE+styleClose
+    +'</head><body>'
+    +'<h1>🌿 '+co+'</h1>'
+    +'<p class="sub">'+esc(CFG.phone||'')+' · '+esc(CFG.email||'')+'</p>'
+    +'<h2 style="font-size:17px;margin-bottom:4px">Estimate '+e.id
+    +' <span class="bk" style="background:#D6EDD6;color:#145214">'+e.status+'</span></h2>'
+    +'<p style="font-size:13px;color:#666;margin-bottom:14px">Client: <strong>'+esc(e.client)+'</strong> · Issued: '+esc(e.date)+' · Valid until: '+esc(e.validUntil)+'</p>'
+    +(e.notes?'<p style="font-size:13px;color:#888;font-style:italic;margin-bottom:12px">'+esc(e.notes)+'</p>':'')
+    +'<table><thead><tr><th>Description</th><th>Qty</th><th>Unit</th><th>Unit Price</th><th>Total</th></tr></thead>'
+    +'<tbody>'+e.lines.map(l=>'<tr><td>'+esc(l.desc)+'</td><td>'+l.qty+'</td><td>'+esc(l.unit)+'</td><td>$'+l.price.toLocaleString()+'</td><td>$'+(l.qty*l.price).toLocaleString()+'</td></tr>').join('')+'</tbody>'
+    +'<tfoot><tr><td colspan="4" style="text-align:right;padding-right:10px">Grand Total</td><td>$'+total.toLocaleString()+'</td></tr></tfoot>'
+    +'</table>'
+    +'<p style="margin-top:44px;font-size:12px;color:#aaa">Valid until '+esc(e.validUntil)+' — '+co+'</p>'
+    +'<script>window.print()<\/script></body></html>');
 }
 
 function printReport() {
-const titles = {billing:‘Billing Summary’,clients:‘Revenue by Client’,crew:‘Crew Productivity’};
-const body = document.getElementById(‘rpt-body’).innerHTML;
-const co = CFG.company||‘GreenRoute Landscaping’;
-const w = window.open(’’,’_blank’);
-const styleOpen = ‘<’ + ‘style>’;
-const styleClose = ‘</’ + ‘style>’;
-w.document.write(’<!DOCTYPE html><html><head><title>’+titles[reportType]+’</title>’
-+styleOpen
-+‘body{font-family:Georgia,serif;padding:36px;max-width:860px;margin:0 auto;color:#111}’
-+‘h1{color:#1A6B1A;font-size:22px}.rsection{margin-bottom:22px;border:1px solid #ddd;border-radius:9px;padding:14px}’
-+‘h3{font-size:14px;margin-bottom:10px;color:#1A6B1A}.stats{display:flex;gap:8px;margin-bottom:10px}’
-+’.stat{flex:1;border:1px solid #ddd;border-radius:7px;padding:9px;text-align:center}’
-+’.stat-n{font-size:17px;font-weight:800}.stat-l{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.4px}’
-+‘table{width:100%;border-collapse:collapse;font-size:13px}’
-+‘th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:#888;padding-bottom:6px;border-bottom:2px solid #ddd}’
-+‘td{padding:7px 0;border-bottom:1px solid #f0f0f0}’
-+’.badge{display:inline-block;padding:2px 7px;border-radius:5px;font-size:10px;font-weight:800;text-transform:uppercase}’
-+’.rbar{height:8px;border-radius:99px;background:#1A6B1A;display:inline-block}’
-+styleClose
-+’</head><body>’
-+’<h1>🌿 ‘+co+’</h1>’
-+’<p style="color:#888;font-size:12px;margin-bottom:18px">’+titles[reportType]+’ · ‘+new Date().toLocaleDateString()+’</p>’
-+body
-+’<script>window.print()</script></body></html>’);
+  const titles = {billing:'Billing Summary',clients:'Revenue by Client',crew:'Crew Productivity'};
+  const body = document.getElementById('rpt-body').innerHTML;
+  const co = CFG.company||'GreenRoute Landscaping';
+  const w = window.open('','_blank');
+  const styleOpen = '<' + 'style>';
+  const styleClose = '</' + 'style>';
+  w.document.write('<!DOCTYPE html><html><head><title>'+titles[reportType]+'</title>'
+    +styleOpen
+    +'body{font-family:Georgia,serif;padding:36px;max-width:860px;margin:0 auto;color:#111}'
+    +'h1{color:#1A6B1A;font-size:22px}.rsection{margin-bottom:22px;border:1px solid #ddd;border-radius:9px;padding:14px}'
+    +'h3{font-size:14px;margin-bottom:10px;color:#1A6B1A}.stats{display:flex;gap:8px;margin-bottom:10px}'
+    +'.stat{flex:1;border:1px solid #ddd;border-radius:7px;padding:9px;text-align:center}'
+    +'.stat-n{font-size:17px;font-weight:800}.stat-l{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.4px}'
+    +'table{width:100%;border-collapse:collapse;font-size:13px}'
+    +'th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:#888;padding-bottom:6px;border-bottom:2px solid #ddd}'
+    +'td{padding:7px 0;border-bottom:1px solid #f0f0f0}'
+    +'.badge{display:inline-block;padding:2px 7px;border-radius:5px;font-size:10px;font-weight:800;text-transform:uppercase}'
+    +'.rbar{height:8px;border-radius:99px;background:#1A6B1A;display:inline-block}'
+    +styleClose
+    +'</head><body>'
+    +'<h1>🌿 '+co+'</h1>'
+    +'<p style="color:#888;font-size:12px;margin-bottom:18px">'+titles[reportType]+' · '+new Date().toLocaleDateString()+'</p>'
+    +body
+    +'<script>window.print()<\/script></body></html>');
 }
 
 /* ═══════════════════════════════════════════════
-ADD / EDIT FORMS
-═══════════════════════════════════════════════ */
+   ADD / EDIT FORMS
+   ═══════════════════════════════════════════════ */
 function openForm(type, id) {
-formType=type; editId=id||null;
-closeSheet();
-const map = {client:DB.clients, job:DB.jobs, worker:DB.workers, invoice:DB.invoices};
-const rec = id ? map[type].find(x=>String(x.id)===String(id)) : null;
-const title = (id?’Edit ’:’Add ’) + type[0].toUpperCase()+type.slice(1);
-openModal(title, buildForm(type, rec||{}));
+  formType=type; editId=id||null;
+  closeSheet();
+  const map = {client:DB.clients, job:DB.jobs, worker:DB.workers, invoice:DB.invoices};
+  const rec = id ? map[type].find(x=>String(x.id)===String(id)) : null;
+  const title = (id?'Edit ':'Add ') + type[0].toUpperCase()+type.slice(1);
+  openModal(title, buildForm(type, rec||{}));
 }
 
 function buildForm(type, d={}) {
-const crewOpts = crews().map(c=>`<option ${(d.crew||'')==c?'selected':''}>${c}</option>`).join(’’);
-const clientOpts = clientNames().map(n=>`<option ${(d.client||'')==n?'selected':''}>${n}</option>`).join(’’);
-const statusOpts = (opts, cur) => opts.map(s=>`<option ${(cur||opts[0])===s?'selected':''}>${s}</option>`).join(’’);
+  const crewOpts = crews().map(c=>`<option ${(d.crew||'')==c?'selected':''}>${c}</option>`).join('');
+  const clientOpts = clientNames().map(n=>`<option ${(d.client||'')==n?'selected':''}>${n}</option>`).join('');
+  const statusOpts = (opts, cur) => opts.map(s=>`<option ${(cur||opts[0])===s?'selected':''}>${s}</option>`).join('');
 
-if (type===‘client’) {
-const rt = (d.recurringSchedule||{}).type||’’;
-return ` <label class="mlbl">Name *</label> <input id="f-name" class="minput" value="${esc(d.name||'')}" placeholder="Client name"> <label class="mlbl">Address</label> <input id="f-address" class="minput" value="${esc(d.address||'')}" placeholder="Street address"> <label class="mlbl">Phone</label> <input id="f-phone" class="minput" value="${esc(d.phone||'')}" placeholder="(000) 000-0000"> <label class="mlbl">Service Type</label> <input id="f-service" class="minput" value="${esc(d.service||'')}" placeholder="e.g. Weekly Mow + Trim"> <label class="mlbl">Next Job</label> <input id="f-nextjob" class="minput" value="${esc(d.nextJob||'')}" placeholder="e.g. Apr 12"> <label class="mlbl">Status</label> <select id="f-status" class="minput">${statusOpts(['Active','Paused'],d.status)}</select> <label class="mlbl">Notes</label> <textarea id="f-notes" class="minput">${esc(d.notes||'')}</textarea> <label class="mlbl">Recurring Schedule</label> <select id="f-recur-type" class="minput" onchange="document.getElementById('recur-extra').style.display=this.value?'block':'none'"> <option value="">None</option> ${['Weekly','Bi-Weekly','Monthly','Custom','Seasonal'].map(t=>`<option ${rt===t?‘selected’:’’}>${t}</option>`).join('')} </select> <div id="recur-extra" style="${rt?'':'display:none'}"> <label class="mlbl">Day / Interval</label> <input id="f-recur-day" class="minput" value="${esc((d.recurringSchedule||{}).day||'')}" placeholder="e.g. Saturday"> <label class="mlbl">Crew</label> <select id="f-recur-crew" class="minput">${crewOpts}</select> <label class="mlbl">Recurring Service</label> <input id="f-recur-svc" class="minput" value="${esc((d.recurringSchedule||{}).service||'')}" placeholder="e.g. Mow + Edge"> </div>`;
-}
-if (type===‘job’) {
-return ` <label class="mlbl">Client *</label> <select id="f-client" class="minput">${clientOpts}</select> <div class="form2"> <div><label class="mlbl">Date</label> <input id="f-date" class="minput" value="${esc(d.date||'')}" placeholder="Apr 12 2025"></div> <div><label class="mlbl">Time</label> <input id="f-time" class="minput" value="${esc(d.time||'')}" placeholder="8:00 AM"></div> </div> <label class="mlbl">Service</label> <input id="f-service" class="minput" value="${esc(d.service||'')}" placeholder="e.g. Mow + Edge"> <label class="mlbl">Crew</label> <select id="f-crew" class="minput">${crewOpts}</select> <label class="mlbl">Status</label> <select id="f-status" class="minput">${statusOpts(['Scheduled','Completed'],d.status)}</select> <label class="mlbl">Type</label> <select id="f-recurring" class="minput"> <option value="false" ${!d.isRecurring?'selected':''}>One-time</option> <option value="true" ${d.isRecurring?'selected':''}>Recurring</option> </select>`;
-}
-if (type===‘worker’) {
-const DAYS = [‘Mon’,‘Tue’,‘Wed’,‘Thu’,‘Fri’,‘Sat’,‘Sun’];
-const dayBtns = DAYS.map(day => {
-const on = (d.recurringDays||[]).includes(day);
-return `<button type="button" class="chip${on?' on':''}" style="font-size:11px;padding:6px 10px" onclick="toggleDay(this,'${day}')">${day}</button>`;
-}).join(’’);
-return ` <label class="mlbl">Name *</label> <input id="f-name" class="minput" value="${esc(d.name||'')}" placeholder="Full name"> <div class="form2"> <div><label class="mlbl">Role</label> <select id="f-role" class="minput"> ${['Crew Lead','Technician','Laborer'].map(r=>`<option ${(d.role||’’)==r?‘selected’:’’}>${r}</option>`).join('')} </select></div> <div><label class="mlbl">Crew</label> <input id="f-crew" class="minput" value="${esc(d.crew||'')}" placeholder="Crew A"></div> </div> <label class="mlbl">Phone</label> <input id="f-phone" class="minput" value="${esc(d.phone||'')}" placeholder="(000) 000-0000"> <label class="mlbl">Status</label> <select id="f-status" class="minput">${statusOpts(['Active','On Leave','Inactive'],d.status)}</select> <label class="mlbl">Recurring Work Days</label> <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:5px">${dayBtns}</div> <input type="hidden" id="f-recur-days" value="${esc(JSON.stringify(d.recurringDays||[]))}">`;
-}
-if (type===‘invoice’) {
-return ` <label class="mlbl">Invoice ID</label> <input id="f-invid" class="minput" value="${esc(d.id||autoInvId())}"> <label class="mlbl">Client *</label> <select id="f-client" class="minput">${clientOpts}</select> <label class="mlbl">Amount ($) *</label> <input id="f-amount" class="minput" type="number" value="${d.amount||''}" placeholder="0.00"> <div class="form2"> <div><label class="mlbl">Issue Date</label> <input id="f-date" class="minput" value="${esc(d.date||'')}" placeholder="Apr 1 2025"></div> <div><label class="mlbl">Due Date</label> <input id="f-due" class="minput" value="${esc(d.due||'')}" placeholder="Apr 15 2025"></div> </div> <label class="mlbl">Status</label> <select id="f-status" class="minput">${statusOpts(['Unpaid','Paid','Overdue'],d.status)}</select> <label class="mlbl">Notes</label> <textarea id="f-notes" class="minput">${esc(d.notes||'')}</textarea>`;
-}
-return ‘’;
+  if (type==='client') {
+    const rt = (d.recurringSchedule||{}).type||'';
+    return `
+      <label class="mlbl">Name *</label>
+      <input id="f-name" class="minput" value="${esc(d.name||'')}" placeholder="Client name">
+      <label class="mlbl">Address</label>
+      <input id="f-address" class="minput" value="${esc(d.address||'')}" placeholder="Street address">
+      <label class="mlbl">Phone</label>
+      <input id="f-phone" class="minput" value="${esc(d.phone||'')}" placeholder="(000) 000-0000">
+      <label class="mlbl">Service Type</label>
+      <input id="f-service" class="minput" value="${esc(d.service||'')}" placeholder="e.g. Weekly Mow + Trim">
+      <label class="mlbl">Next Job</label>
+      <input id="f-nextjob" class="minput" value="${esc(d.nextJob||'')}" placeholder="e.g. Apr 12">
+      <label class="mlbl">Status</label>
+      <select id="f-status" class="minput">${statusOpts(['Active','Paused'],d.status)}</select>
+      <label class="mlbl">Notes</label>
+      <textarea id="f-notes" class="minput">${esc(d.notes||'')}</textarea>
+      <label class="mlbl">Recurring Schedule</label>
+      <select id="f-recur-type" class="minput"
+              onchange="document.getElementById('recur-extra').style.display=this.value?'block':'none'">
+        <option value="">None</option>
+        ${['Weekly','Bi-Weekly','Monthly','Custom','Seasonal'].map(t=>`<option ${rt===t?'selected':''}>${t}</option>`).join('')}
+      </select>
+      <div id="recur-extra" style="${rt?'':'display:none'}">
+        <label class="mlbl">Day / Interval</label>
+        <input id="f-recur-day" class="minput" value="${esc((d.recurringSchedule||{}).day||'')}" placeholder="e.g. Saturday">
+        <label class="mlbl">Crew</label>
+        <select id="f-recur-crew" class="minput">${crewOpts}</select>
+        <label class="mlbl">Recurring Service</label>
+        <input id="f-recur-svc" class="minput" value="${esc((d.recurringSchedule||{}).service||'')}" placeholder="e.g. Mow + Edge">
+      </div>`;
+  }
+  if (type==='job') {
+    return `
+      <label class="mlbl">Client *</label>
+      <select id="f-client" class="minput">${clientOpts}</select>
+      <div class="form2">
+        <div><label class="mlbl">Date</label>
+          <input id="f-date" class="minput" value="${esc(d.date||'')}" placeholder="Apr 12 2025"></div>
+        <div><label class="mlbl">Time</label>
+          <input id="f-time" class="minput" value="${esc(d.time||'')}" placeholder="8:00 AM"></div>
+      </div>
+      <label class="mlbl">Service</label>
+      <input id="f-service" class="minput" value="${esc(d.service||'')}" placeholder="e.g. Mow + Edge">
+      <label class="mlbl">Crew</label>
+      <select id="f-crew" class="minput">${crewOpts}</select>
+      <label class="mlbl">Status</label>
+      <select id="f-status" class="minput">${statusOpts(['Scheduled','Completed'],d.status)}</select>
+      <label class="mlbl">Type</label>
+      <select id="f-recurring" class="minput">
+        <option value="false" ${!d.isRecurring?'selected':''}>One-time</option>
+        <option value="true" ${d.isRecurring?'selected':''}>Recurring</option>
+      </select>`;
+  }
+  if (type==='worker') {
+    const DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    const dayBtns = DAYS.map(day => {
+      const on = (d.recurringDays||[]).includes(day);
+      return `<button type="button" class="chip${on?' on':''}"
+               style="font-size:11px;padding:6px 10px"
+               onclick="toggleDay(this,'${day}')">${day}</button>`;
+    }).join('');
+    return `
+      <label class="mlbl">Name *</label>
+      <input id="f-name" class="minput" value="${esc(d.name||'')}" placeholder="Full name">
+      <div class="form2">
+        <div><label class="mlbl">Role</label>
+          <select id="f-role" class="minput">
+            ${['Crew Lead','Technician','Laborer'].map(r=>`<option ${(d.role||'')==r?'selected':''}>${r}</option>`).join('')}
+          </select></div>
+        <div><label class="mlbl">Crew</label>
+          <input id="f-crew" class="minput" value="${esc(d.crew||'')}" placeholder="Crew A"></div>
+      </div>
+      <label class="mlbl">Phone</label>
+      <input id="f-phone" class="minput" value="${esc(d.phone||'')}" placeholder="(000) 000-0000">
+      <label class="mlbl">Status</label>
+      <select id="f-status" class="minput">${statusOpts(['Active','On Leave','Inactive'],d.status)}</select>
+      <label class="mlbl">Recurring Work Days</label>
+      <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:5px">${dayBtns}</div>
+      <input type="hidden" id="f-recur-days" value="${esc(JSON.stringify(d.recurringDays||[]))}">`;
+  }
+  if (type==='invoice') {
+    return `
+      <label class="mlbl">Invoice ID</label>
+      <input id="f-invid" class="minput" value="${esc(d.id||autoInvId())}">
+      <label class="mlbl">Client *</label>
+      <select id="f-client" class="minput">${clientOpts}</select>
+      <label class="mlbl">Amount ($) *</label>
+      <input id="f-amount" class="minput" type="number" value="${d.amount||''}" placeholder="0.00">
+      <div class="form2">
+        <div><label class="mlbl">Issue Date</label>
+          <input id="f-date" class="minput" value="${esc(d.date||'')}" placeholder="Apr 1 2025"></div>
+        <div><label class="mlbl">Due Date</label>
+          <input id="f-due" class="minput" value="${esc(d.due||'')}" placeholder="Apr 15 2025"></div>
+      </div>
+      <label class="mlbl">Status</label>
+      <select id="f-status" class="minput">${statusOpts(['Unpaid','Paid','Overdue'],d.status)}</select>
+      <label class="mlbl">Notes</label>
+      <textarea id="f-notes" class="minput">${esc(d.notes||'')}</textarea>`;
+  }
+  return '';
 }
 
 function toggleDay(btn, day) {
-btn.classList.toggle(‘on’);
-const inp = document.getElementById(‘f-recur-days’);
-let days = JSON.parse(inp.value||’[]’);
-if (btn.classList.contains(‘on’)) { if (!days.includes(day)) days.push(day); }
-else days = days.filter(d=>d!==day);
-inp.value = JSON.stringify(days);
+  btn.classList.toggle('on');
+  const inp = document.getElementById('f-recur-days');
+  let days = JSON.parse(inp.value||'[]');
+  if (btn.classList.contains('on')) { if (!days.includes(day)) days.push(day); }
+  else days = days.filter(d=>d!==day);
+  inp.value = JSON.stringify(days);
 }
 
 function submitForm() {
-if (formType === ‘estimate’) { saveEstimate(); return; }
-if (formType===‘client’) {
-const name = gv(‘f-name’);
-if (!name) { toast(‘Name is required’); return; }
-const rt = gv(‘f-recur-type’);
-const rs = rt ? {type:rt, day:gv(‘f-recur-day’), crew:gv(‘f-recur-crew’), service:gv(‘f-recur-svc’)} : null;
-const ex = editId ? DB.clients.find(x=>x.id==editId) : null;
-const rec = {id:editId||nextId(DB.clients), name, address:gv(‘f-address’), phone:gv(‘f-phone’),
-service:gv(‘f-service’), nextJob:gv(‘f-nextjob’), status:gv(‘f-status’),
-notes:gv(‘f-notes’), photos:(ex||{}).photos||[], recurringSchedule:rs};
-upsert(DB.clients, rec, editId); save(); renderClients(); toast(editId?‘Client updated’:‘Client added ✓’);
-} else if (formType===‘job’) {
-const rec = {id:editId||nextId(DB.jobs), client:gv(‘f-client’), date:gv(‘f-date’),
-time:gv(‘f-time’), service:gv(‘f-service’), crew:gv(‘f-crew’), status:gv(‘f-status’),
-isRecurring:gv(‘f-recurring’)===‘true’};
-upsert(DB.jobs, rec, editId); save(); renderJobs(); toast(editId?‘Job updated’:‘Job added ✓’);
-} else if (formType===‘worker’) {
-const name = gv(‘f-name’);
-if (!name) { toast(‘Name is required’); return; }
-const days = JSON.parse(document.getElementById(‘f-recur-days’).value||’[]’);
-const ex = editId ? DB.workers.find(x=>x.id==editId) : null;
-const rec = {id:editId||nextId(DB.workers), name, role:gv(‘f-role’), crew:gv(‘f-crew’),
-phone:gv(‘f-phone’), status:gv(‘f-status’), jobs:(ex||{}).jobs||0, recurringDays:days};
-upsert(DB.workers, rec, editId); save(); renderWorkers(); toast(editId?‘Worker updated’:‘Worker added ✓’);
-} else if (formType===‘invoice’) {
-const amount = parseFloat(gv(‘f-amount’));
-if (!amount) { toast(‘Amount is required’); return; }
-const invId = gv(‘f-invid’);
-const rec = {id:invId, client:gv(‘f-client’), amount, date:gv(‘f-date’),
-due:gv(‘f-due’), status:gv(‘f-status’), notes:gv(‘f-notes’)};
-if (editId) { const i=DB.invoices.findIndex(x=>x.id===editId); if(i>-1) DB.invoices[i]=rec; }
-else DB.invoices.unshift(rec);
-save(); renderInvoices(); toast(editId?‘Invoice updated’:‘Invoice added ✓’);
-}
-closeModal();
+  if (formType === 'estimate') { saveEstimate(); return; }
+  if (formType==='client') {
+    const name = gv('f-name');
+    if (!name) { toast('Name is required'); return; }
+    const rt = gv('f-recur-type');
+    const rs = rt ? {type:rt, day:gv('f-recur-day'), crew:gv('f-recur-crew'), service:gv('f-recur-svc')} : null;
+    const ex = editId ? DB.clients.find(x=>x.id==editId) : null;
+    const rec = {id:editId||nextId(DB.clients), name, address:gv('f-address'), phone:gv('f-phone'),
+      service:gv('f-service'), nextJob:gv('f-nextjob'), status:gv('f-status'),
+      notes:gv('f-notes'), photos:(ex||{}).photos||[], recurringSchedule:rs};
+    upsert(DB.clients, rec, editId); save(); renderClients(); toast(editId?'Client updated':'Client added ✓');
+  } else if (formType==='job') {
+    const rec = {id:editId||nextId(DB.jobs), client:gv('f-client'), date:gv('f-date'),
+      time:gv('f-time'), service:gv('f-service'), crew:gv('f-crew'), status:gv('f-status'),
+      isRecurring:gv('f-recurring')==='true'};
+    upsert(DB.jobs, rec, editId); save(); renderJobs(); toast(editId?'Job updated':'Job added ✓');
+  } else if (formType==='worker') {
+    const name = gv('f-name');
+    if (!name) { toast('Name is required'); return; }
+    const days = JSON.parse(document.getElementById('f-recur-days').value||'[]');
+    const ex = editId ? DB.workers.find(x=>x.id==editId) : null;
+    const rec = {id:editId||nextId(DB.workers), name, role:gv('f-role'), crew:gv('f-crew'),
+      phone:gv('f-phone'), status:gv('f-status'), jobs:(ex||{}).jobs||0, recurringDays:days};
+    upsert(DB.workers, rec, editId); save(); renderWorkers(); toast(editId?'Worker updated':'Worker added ✓');
+  } else if (formType==='invoice') {
+    const amount = parseFloat(gv('f-amount'));
+    if (!amount) { toast('Amount is required'); return; }
+    const invId = gv('f-invid');
+    const rec = {id:invId, client:gv('f-client'), amount, date:gv('f-date'),
+      due:gv('f-due'), status:gv('f-status'), notes:gv('f-notes')};
+    if (editId) { const i=DB.invoices.findIndex(x=>x.id===editId); if(i>-1) DB.invoices[i]=rec; }
+    else DB.invoices.unshift(rec);
+    save(); renderInvoices(); toast(editId?'Invoice updated':'Invoice added ✓');
+  }
+  closeModal();
 }
 
 function saveEstimate() {
-const rec = {client:gv(‘e-client’), date:gv(‘e-date’), validUntil:gv(‘e-valid’),
-status:gv(‘e-status’), notes:gv(‘e-notes’), lines:estLines.slice()};
-if (estEditId) {
-const e = DB.estimates.find(x=>x.id===estEditId);
-if (e) Object.assign(e, rec);
-} else {
-DB.estimates.unshift({id:autoEstId(), …rec});
-}
-save(); renderEstimates(); closeModal(); toast(estEditId?‘Estimate updated’:‘Estimate added ✓’);
-estEditId=null; estLines=[];
+  const rec = {client:gv('e-client'), date:gv('e-date'), validUntil:gv('e-valid'),
+    status:gv('e-status'), notes:gv('e-notes'), lines:estLines.slice()};
+  if (estEditId) {
+    const e = DB.estimates.find(x=>x.id===estEditId);
+    if (e) Object.assign(e, rec);
+  } else {
+    DB.estimates.unshift({id:autoEstId(), ...rec});
+  }
+  save(); renderEstimates(); closeModal(); toast(estEditId?'Estimate updated':'Estimate added ✓');
+  estEditId=null; estLines=[];
 }
 
 // Intercept modal submit for estimate (which uses openModal too)
 const _origSubmit = submitForm;
 
 /* ═══════════════════════════════════════════════
-DELETE
-═══════════════════════════════════════════════ */
+   DELETE
+   ═══════════════════════════════════════════════ */
 function delRecord(type, id) {
-if (!confirm(‘Delete this record?’)) return;
-const map = {client:‘clients’,job:‘jobs’,worker:‘workers’,invoice:‘invoices’,estimate:‘estimates’};
-DB[map[type]] = DB[map[type]].filter(x=>String(x.id)!==String(id));
-save(); closeSheet();
-const renders = {client:renderClients,job:renderJobs,worker:renderWorkers,
-invoice:renderInvoices,estimate:renderEstimates};
-if (renders[type]) renders[type]();
-toast(‘Deleted’);
+  if (!confirm('Delete this record?')) return;
+  const map = {client:'clients',job:'jobs',worker:'workers',invoice:'invoices',estimate:'estimates'};
+  DB[map[type]] = DB[map[type]].filter(x=>String(x.id)!==String(id));
+  save(); closeSheet();
+  const renders = {client:renderClients,job:renderJobs,worker:renderWorkers,
+                   invoice:renderInvoices,estimate:renderEstimates};
+  if (renders[type]) renders[type]();
+  toast('Deleted');
 }
 
 /* ═══════════════════════════════════════════════
-SYNC / JSONBIN
-═══════════════════════════════════════════════ */
+   SYNC / JSONBIN
+   ═══════════════════════════════════════════════ */
 function loadSyncFields() {
-document.getElementById(‘cs-binid’).value  = CFG.binId||’’;
-document.getElementById(‘cs-apikey’).value = CFG.apiKey||’’;
-document.getElementById(‘cs-company’).value= CFG.company||’’;
-document.getElementById(‘cs-phone’).value  = CFG.phone||’’;
-document.getElementById(‘cs-email’).value  = CFG.email||’’;
-document.getElementById(‘cs-msg’).textContent=’’;
-document.getElementById(‘cs-msg’).style.background=’’;
-updateSyncCard();
+  document.getElementById('cs-binid').value  = CFG.binId||'';
+  document.getElementById('cs-apikey').value = CFG.apiKey||'';
+  document.getElementById('cs-company').value= CFG.company||'';
+  document.getElementById('cs-phone').value  = CFG.phone||'';
+  document.getElementById('cs-email').value  = CFG.email||'';
+  document.getElementById('cs-msg').textContent='';
+  document.getElementById('cs-msg').style.background='';
+  updateSyncCard();
 }
 
 function updateSyncCard() {
-const ico   = document.getElementById(‘ssc-ico’);
-const title = document.getElementById(‘ssc-title’);
-const sub   = document.getElementById(‘ssc-sub’);
-const card  = document.getElementById(‘sync-status-card’);
-if (!ico) return;
-if (CFG.binId && CFG.apiKey) {
-ico.textContent=‘✅’; title.textContent=‘Cloud sync configured’;
-title.style.color=‘var(–g600)’;
-sub.textContent=‘Bin: ‘+CFG.binId.substring(0,12)+’… · Tap ↑ Sync to push data.’;
-card.style.borderColor=‘var(–g600)’; card.style.background=‘var(–g100)’;
-} else {
-ico.textContent=‘⚠️’; title.textContent=‘Not configured’;
-title.style.color=‘var(–y600)’;
-sub.textContent=‘Enter your credentials below to enable cloud backup.’;
-card.style.borderColor=‘var(–border)’; card.style.background=‘var(–surface)’;
-}
+  const ico   = document.getElementById('ssc-ico');
+  const title = document.getElementById('ssc-title');
+  const sub   = document.getElementById('ssc-sub');
+  const card  = document.getElementById('sync-status-card');
+  if (!ico) return;
+  if (CFG.binId && CFG.apiKey) {
+    ico.textContent='✅'; title.textContent='Cloud sync configured';
+    title.style.color='var(--g600)';
+    sub.textContent='Bin: '+CFG.binId.substring(0,12)+'… · Tap ↑ Sync to push data.';
+    card.style.borderColor='var(--g600)'; card.style.background='var(--g100)';
+  } else {
+    ico.textContent='⚠️'; title.textContent='Not configured';
+    title.style.color='var(--y600)';
+    sub.textContent='Enter your credentials below to enable cloud backup.';
+    card.style.borderColor='var(--border)'; card.style.background='var(--surface)';
+  }
 }
 
 async function saveSync() {
-const binId  = document.getElementById(‘cs-binid’).value.trim();
-const apiKey = document.getElementById(‘cs-apikey’).value.trim();
-const msg    = document.getElementById(‘cs-msg’);
-if (!binId || !apiKey) {
-msg.textContent=‘⚠️ Enter both Bin ID and API Key.’;
-msg.style.background=‘var(–y100)’; msg.style.color=‘var(–y600)’; return;
-}
-msg.textContent=‘Testing connection…’; msg.style.background=’’; msg.style.color=‘var(–ink3)’;
-try {
-const res = await fetch(‘https://api.jsonbin.io/v3/b/’+binId+’/latest’,
-{headers:{‘X-Master-Key’:apiKey}});
-if (res.status===401) throw new Error(‘Invalid API Key.’);
-if (res.status===404) throw new Error(‘Bin ID not found.’);
-if (!res.ok) throw new Error(’Error ’+res.status);
-CFG.binId=binId; CFG.apiKey=apiKey;
-CFG.company=document.getElementById(‘cs-company’).value.trim();
-CFG.phone=document.getElementById(‘cs-phone’).value.trim();
-CFG.email=document.getElementById(‘cs-email’).value.trim();
-localStorage.setItem(‘gr_cfg’, JSON.stringify(CFG));
-document.getElementById(‘banner’).classList.add(‘hide’);
-updateSyncCard();
-msg.textContent=‘✅ Connected! Loading cloud data…’;
-msg.style.background=‘var(–g100)’; msg.style.color=‘var(–g700)’;
-setTimeout(loadFromCloud, 1000);
-} catch(e) {
-msg.textContent=’❌ ’+e.message;
-msg.style.background=‘var(–r100)’; msg.style.color=‘var(–r600)’;
-}
+  const binId  = document.getElementById('cs-binid').value.trim();
+  const apiKey = document.getElementById('cs-apikey').value.trim();
+  const msg    = document.getElementById('cs-msg');
+  if (!binId || !apiKey) {
+    msg.textContent='⚠️ Enter both Bin ID and API Key.';
+    msg.style.background='var(--y100)'; msg.style.color='var(--y600)'; return;
+  }
+  msg.textContent='Testing connection…'; msg.style.background=''; msg.style.color='var(--ink3)';
+  try {
+    const res = await fetch('https://api.jsonbin.io/v3/b/'+binId+'/latest',
+      {headers:{'X-Master-Key':apiKey}});
+    if (res.status===401) throw new Error('Invalid API Key.');
+    if (res.status===404) throw new Error('Bin ID not found.');
+    if (!res.ok) throw new Error('Error '+res.status);
+    CFG.binId=binId; CFG.apiKey=apiKey;
+    CFG.company=document.getElementById('cs-company').value.trim();
+    CFG.phone=document.getElementById('cs-phone').value.trim();
+    CFG.email=document.getElementById('cs-email').value.trim();
+    localStorage.setItem('gr_cfg', JSON.stringify(CFG));
+    document.getElementById('banner').classList.add('hide');
+    updateSyncCard();
+    msg.textContent='✅ Connected! Loading cloud data…';
+    msg.style.background='var(--g100)'; msg.style.color='var(--g700)';
+    setTimeout(loadFromCloud, 1000);
+  } catch(e) {
+    msg.textContent='❌ '+e.message;
+    msg.style.background='var(--r100)'; msg.style.color='var(--r600)';
+  }
 }
 
 async function doSync() {
-if (!CFG.binId||!CFG.apiKey) { go(‘sync’); return; }
-const btn = document.getElementById(‘sync-btn’);
-btn.textContent=‘↻…’; btn.disabled=true;
-try {
-const payload = JSON.parse(JSON.stringify(DB));
-// Limit photos per client to avoid exceeding JSONBin 1MB limit
-payload.clients.forEach(c => { if(c.photos&&c.photos.length>4) c.photos=c.photos.slice(0,4); });
-const res = await fetch(‘https://api.jsonbin.io/v3/b/’+CFG.binId, {
-method:‘PUT’,
-headers:{‘Content-Type’:‘application/json’,‘X-Master-Key’:CFG.apiKey,‘X-Bin-Versioning’:‘false’},
-body:JSON.stringify(payload)
-});
-if (!res.ok) throw new Error(await res.text());
-toast(‘✅ Synced to cloud!’);
-} catch(e) { toast(’❌ Sync failed: ’+e.message); }
-btn.textContent=‘↑ Sync’; btn.disabled=false;
+  if (!CFG.binId||!CFG.apiKey) { go('sync'); return; }
+  const btn = document.getElementById('sync-btn');
+  btn.textContent='↻…'; btn.disabled=true;
+  try {
+    const payload = JSON.parse(JSON.stringify(DB));
+    // Limit photos per client to avoid exceeding JSONBin 1MB limit
+    payload.clients.forEach(c => { if(c.photos&&c.photos.length>4) c.photos=c.photos.slice(0,4); });
+    const res = await fetch('https://api.jsonbin.io/v3/b/'+CFG.binId, {
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':CFG.apiKey,'X-Bin-Versioning':'false'},
+      body:JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error(await res.text());
+    toast('✅ Synced to cloud!');
+  } catch(e) { toast('❌ Sync failed: '+e.message); }
+  btn.textContent='↑ Sync'; btn.disabled=false;
 }
 
 async function loadFromCloud() {
-if (!CFG.binId||!CFG.apiKey) return;
-try {
-const res = await fetch(‘https://api.jsonbin.io/v3/b/’+CFG.binId+’/latest’,
-{headers:{‘X-Master-Key’:CFG.apiKey}});
-if (!res.ok) return;
-const json = await res.json();
-if (json.record && typeof json.record === ‘object’ && !Array.isArray(json.record)) {
-// Only load if it has our expected keys
-if (json.record.clients !== undefined) {
-DB = json.record;
-// Ensure all arrays exist
-DB.clients   = DB.clients||[];
-DB.jobs      = DB.jobs||[];
-DB.workers   = DB.workers||[];
-DB.invoices  = DB.invoices||[];
-DB.estimates = DB.estimates||[];
-save(); renderAll(); toast(‘☁ Loaded from cloud’);
-}
-}
-} catch(e) { /* silent — offline or bad creds */ }
+  if (!CFG.binId||!CFG.apiKey) return;
+  try {
+    const res = await fetch('https://api.jsonbin.io/v3/b/'+CFG.binId+'/latest',
+      {headers:{'X-Master-Key':CFG.apiKey}});
+    if (!res.ok) return;
+    const json = await res.json();
+    if (json.record && typeof json.record === 'object' && !Array.isArray(json.record)) {
+      // Only load if it has our expected keys
+      if (json.record.clients !== undefined) {
+        DB = json.record;
+        // Ensure all arrays exist
+        DB.clients   = DB.clients||[];
+        DB.jobs      = DB.jobs||[];
+        DB.workers   = DB.workers||[];
+        DB.invoices  = DB.invoices||[];
+        DB.estimates = DB.estimates||[];
+        save(); renderAll(); toast('☁ Loaded from cloud');
+      }
+    }
+  } catch(e) { /* silent — offline or bad creds */ }
 }
 
 /* ═══════════════════════════════════════════════
-RENDER ALL
-═══════════════════════════════════════════════ */
+   RENDER ALL
+   ═══════════════════════════════════════════════ */
 function renderAll() {
-renderClients();
-renderJobs();
-renderWorkers();
-renderInvoices();
-renderEstimates();
+  renderClients();
+  renderJobs();
+  renderWorkers();
+  renderInvoices();
+  renderEstimates();
 }
 
 /* ═══════════════════════════════════════════════
-INIT
-═══════════════════════════════════════════════ */
+   INIT
+   ═══════════════════════════════════════════════ */
 // Hide banner if already configured
 if (CFG.binId && CFG.apiKey) {
-document.getElementById(‘banner’).classList.add(‘hide’);
+  document.getElementById('banner').classList.add('hide');
 }
 renderAll();
 if (CFG.binId && CFG.apiKey) loadFromCloud();
 </script>
-
 </body>
 </html>
