@@ -1266,7 +1266,7 @@ function buildForm(type, d={}) {
       <label class="mlbl">Service Type</label>
       <input id="f-service" class="minput" value="${esc(d.service||'')}" placeholder="e.g. Weekly Mow + Trim">
       <label class="mlbl">Next Job</label>
-      <input id="f-nextjob" class="minput" value="${esc(d.nextJob||'')}" placeholder="e.g. Apr 12">
+      <input id="f-nextjob" class="minput" type="date" value="${toDateInput(d.nextJob||'')}">
       <label class="mlbl">Status</label>
       <select id="f-status" class="minput">${statusOpts(['Active','Paused'],d.status)}</select>
       <label class="mlbl">Notes</label>
@@ -1376,7 +1376,7 @@ function submitForm() {
     const rs = rt ? {type:rt, day:gv('f-recur-day'), crew:gv('f-recur-crew'), service:gv('f-recur-svc')} : null;
     const ex = editId ? DB.clients.find(x=>x.id==editId) : null;
     const rec = {id:editId||nextId(DB.clients), name, address:gv('f-address'), phone:gv('f-phone'), phone2:gv('f-phone2'),
-      service:gv('f-service'), nextJob:gv('f-nextjob'), status:gv('f-status'),
+      service:gv('f-service'), nextJob:friendlyDate(gv('f-nextjob')), status:gv('f-status'),
       notes:gv('f-notes'), photos:(ex||{}).photos||[], recurringSchedule:rs};
     upsert(DB.clients, rec, editId); save(); renderClients(); toast(editId?'Client updated':'Client added ✓');
   } else if (formType==='job') {
@@ -1896,6 +1896,35 @@ function phoneButtons(phone, label) {
     + '<a href="sms:' + digits + '" class="btn btn-b btn-sm" style="flex:1;text-align:center;text-decoration:none">💬 Text</a>'
     + '</div>'
     + '</div>';
+}
+
+
+/* ── Date helpers for Next Job calendar field ── */
+function friendlyDate(iso) {
+  // iso = "2025-04-12"  →  "Apr 12, 2025"
+  if (!iso) return '';
+  var parts = iso.split('-');
+  if (parts.length !== 3) return iso; // already friendly or empty
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var month = months[parseInt(parts[1],10)-1] || parts[1];
+  return month + ' ' + parseInt(parts[2],10) + ', ' + parts[0];
+}
+
+function toDateInput(friendly) {
+  // "Apr 12, 2025" or "Apr 12"  →  "2025-04-12"
+  // Also handles already-ISO strings like "2025-04-12"
+  if (!friendly) return '';
+  // Already ISO format
+  if (/^\d{4}-\d{2}-\d{2}$/.test(friendly)) return friendly;
+  // Try to parse friendly format
+  var months = {Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12};
+  var m = friendly.match(/^(\w{3})\s+(\d{1,2})(?:,?\s+(\d{4}))?/);
+  if (!m) return '';
+  var month = months[m[1]];
+  if (!month) return '';
+  var day   = parseInt(m[2], 10);
+  var year  = m[3] ? parseInt(m[3],10) : new Date().getFullYear();
+  return year + '-' + String(month).padStart(2,'0') + '-' + String(day).padStart(2,'0');
 }
 
 </script>
