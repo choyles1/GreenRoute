@@ -461,7 +461,7 @@ textarea.minput{resize:vertical;min-height:68px}
     </div>
     <div class="sync-input-wrap" style="margin-top:9px">
       <label>Phone</label>
-      <input type="tel" id="cs-phone" placeholder="(000) 000-0000">
+      <input type="tel" id="cs-phone" placeholder="(000) 000-0000" oninput="formatPhone(this)">
     </div>
     <div class="sync-input-wrap" style="margin-top:9px">
       <label>Email</label>
@@ -654,11 +654,15 @@ function renderClients() {
           </div>
         </div>
       </div>
-      ${c.address ? `<div style="display:flex;gap:7px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border2)">
-        <button class="btn btn-b btn-sm" style="flex:1" onclick="openMaps('${esc(c.address)}')">🗺 Maps</button>
-        <button class="btn btn-g btn-sm" style="flex:1" onclick="openForm('client',${c.id});event.stopPropagation()">Edit</button>
-        <button class="btn btn-sm" style="flex:1;background:var(--p100);color:var(--p600);border:1.5px solid var(--p100)" onclick="addToRoute(${c.id});event.stopPropagation()">+ Route</button>
-      </div>` : ''}
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border2)">
+        ${c.phone ? `<a href="tel:${c.phone.replace(/\D/g,'')}" class="btn btn-g btn-sm" style="text-decoration:none" onclick="event.stopPropagation()">📞 Call</a>` : ''}
+        ${c.phone ? `<a href="sms:${c.phone.replace(/\D/g,'')}" class="btn btn-b btn-sm" style="text-decoration:none" onclick="event.stopPropagation()">💬 Text</a>` : ''}
+        ${c.phone2 ? `<a href="tel:${c.phone2.replace(/\D/g,'')}" class="btn btn-g btn-sm" style="text-decoration:none;background:var(--g500)" onclick="event.stopPropagation()">📞 Call 2</a>` : ''}
+        ${c.phone2 ? `<a href="sms:${c.phone2.replace(/\D/g,'')}" class="btn btn-b btn-sm" style="text-decoration:none" onclick="event.stopPropagation()">💬 Text 2</a>` : ''}
+        ${c.address ? `<button class="btn btn-b btn-sm" onclick="openMaps('${esc(c.address)}');event.stopPropagation()">🗺 Maps</button>` : ''}
+        <button class="btn btn-sm" style="background:var(--p100);color:var(--p600);border:1.5px solid var(--p100)" onclick="addToRoute(${c.id});event.stopPropagation()">+ Route</button>
+        <button class="btn btn-g btn-sm" onclick="openForm('client',${c.id});event.stopPropagation()">Edit</button>
+      </div>
     </div>`;
   }).join('');
 }
@@ -679,7 +683,10 @@ function showClient(id) {
   openSheet(`
     <div class="stitle">${esc(c.name)}</div>
     <div class="frow"><div class="flbl">Address</div><div class="fval">${esc(c.address)}</div></div>
-    <div class="frow"><div class="flbl">Phone</div><div class="fval">${esc(c.phone)}</div></div>
+    <div class="frow"><div class="flbl">Contact</div><div class="fval">
+      ${phoneButtons(c.phone,'Phone 1')}
+      ${phoneButtons(c.phone2,'Phone 2')}
+    </div></div>
     <div class="frow"><div class="flbl">Service</div><div class="fval">${esc(c.service)}</div></div>
     ${c.nextJob ? `<div class="frow"><div class="flbl">Next Job</div><div class="fval">${esc(c.nextJob)}</div></div>` : ''}
     <div class="frow"><div class="flbl">Status</div><div class="fval">${badge(c.status||'Active')}</div></div>
@@ -1252,8 +1259,10 @@ function buildForm(type, d={}) {
       <input id="f-name" class="minput" value="${esc(d.name||'')}" placeholder="Client name">
       <label class="mlbl">Address</label>
       <input id="f-address" class="minput" value="${esc(d.address||'')}" placeholder="Street address">
-      <label class="mlbl">Phone</label>
-      <input id="f-phone" class="minput" value="${esc(d.phone||'')}" placeholder="(000) 000-0000">
+      <label class="mlbl">Phone 1</label>
+      <input id="f-phone" class="minput" type="tel" value="${esc(d.phone||'')}" placeholder="(000) 000-0000" oninput="formatPhone(this)">
+      <label class="mlbl">Phone 2 (optional)</label>
+      <input id="f-phone2" class="minput" type="tel" value="${esc(d.phone2||'')}" placeholder="(000) 000-0000" oninput="formatPhone(this)">
       <label class="mlbl">Service Type</label>
       <input id="f-service" class="minput" value="${esc(d.service||'')}" placeholder="e.g. Weekly Mow + Trim">
       <label class="mlbl">Next Job</label>
@@ -1320,7 +1329,7 @@ function buildForm(type, d={}) {
           <input id="f-crew" class="minput" value="${esc(d.crew||'')}" placeholder="Crew A"></div>
       </div>
       <label class="mlbl">Phone</label>
-      <input id="f-phone" class="minput" value="${esc(d.phone||'')}" placeholder="(000) 000-0000">
+      <input id="f-phone" class="minput" value="${esc(d.phone||'')}" placeholder="(000) 000-0000" oninput="formatPhone(this)">
       <label class="mlbl">Status</label>
       <select id="f-status" class="minput">${statusOpts(['Active','On Leave','Inactive'],d.status)}</select>
       <label class="mlbl">Recurring Work Days</label>
@@ -1366,7 +1375,7 @@ function submitForm() {
     const rt = gv('f-recur-type');
     const rs = rt ? {type:rt, day:gv('f-recur-day'), crew:gv('f-recur-crew'), service:gv('f-recur-svc')} : null;
     const ex = editId ? DB.clients.find(x=>x.id==editId) : null;
-    const rec = {id:editId||nextId(DB.clients), name, address:gv('f-address'), phone:gv('f-phone'),
+    const rec = {id:editId||nextId(DB.clients), name, address:gv('f-address'), phone:gv('f-phone'), phone2:gv('f-phone2'),
       service:gv('f-service'), nextJob:gv('f-nextjob'), status:gv('f-status'),
       notes:gv('f-notes'), photos:(ex||{}).photos||[], recurringSchedule:rs};
     upsert(DB.clients, rec, editId); save(); renderClients(); toast(editId?'Client updated':'Client added ✓');
@@ -1859,6 +1868,34 @@ function openAllInMaps(routeId) {
     url += '&travelmode=driving';
     window.open(url, '_blank');
   }
+}
+
+
+/* ── Phone number auto-formatter ── */
+function formatPhone(input) {
+  var digits = input.value.replace(/\D/g, '').substring(0, 10);
+  var len = digits.length;
+  var out = '';
+  if (len === 0) out = '';
+  else if (len <= 3) out = '(' + digits;
+  else if (len <= 6) out = '(' + digits.substring(0,3) + ') ' + digits.substring(3);
+  else out = '(' + digits.substring(0,3) + ') ' + digits.substring(3,6) + '-' + digits.substring(6);
+  input.value = out;
+}
+
+
+/* ── Call / Text button builder ── */
+function phoneButtons(phone, label) {
+  if (!phone) return '';
+  var digits = phone.replace(/\D/g, '');
+  if (!digits) return '';
+  return '<div style="margin-bottom:8px">'
+    + '<div style="font-size:11px;font-weight:700;color:var(--ink3);margin-bottom:5px">' + label + ': ' + phone + '</div>'
+    + '<div style="display:flex;gap:7px">'
+    + '<a href="tel:' + digits + '" class="btn btn-g btn-sm" style="flex:1;text-align:center;text-decoration:none">📞 Call</a>'
+    + '<a href="sms:' + digits + '" class="btn btn-b btn-sm" style="flex:1;text-align:center;text-decoration:none">💬 Text</a>'
+    + '</div>'
+    + '</div>';
 }
 
 </script>
